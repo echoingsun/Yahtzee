@@ -45,6 +45,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private YahtzeeDisplay display;
 	private RandomGenerator rg = new RandomGenerator();
 	
-	private int[] arrayNDICE = new int [N_DICE - 1];
+	private int[] arrayNDICE = new int [N_DICE];
 
 }
