@@ -32,7 +32,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		display.waitForPlayerToClickRoll(1);
 		try {
 			for (int i = 0; i < N_DICE; i ++){
-				arrayNDICE [i] = rg.nextInt(0,6);
+				arrayNDICE [i] = rg.nextInt(1,6);
 			}
 		} catch (ErrorException e){};
 
