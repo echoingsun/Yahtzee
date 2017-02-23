@@ -30,11 +30,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		// for loop nPlayers.
 		// For one single player:
 		display.waitForPlayerToClickRoll(1);
-		arrayNDICE[0] = 1;
-		arrayNDICE[1] = 1;
-		arrayNDICE[2] = 1;
-		arrayNDICE[3] = 1;
-		arrayNDICE[4] = 1;
+		for (int i = 0; i < N_DICE; i ++){
+			arrayNDICE [i] = rg.nextInt(0,6);
+		}
 		display.displayDice(arrayNDICE);
 		
 	}
