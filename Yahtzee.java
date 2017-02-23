@@ -38,6 +38,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 		display.displayDice(arrayNDICE);
 		
+		display.waitForPlayerToSelectDice();
+		
+
+		
+		
 	}
 		
 /* Private instance variables */
