@@ -256,7 +256,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			break;
 		case CHANCE:
 			return sum;
-			
+		case LARGE_STRAIGHT:
+			int oneCount = 0;
+			for (int i = 0; i < freq.length; i++){
+				if (freq[i] == 1) oneCount ++;
+			}
+			if (oneCount ==5 && (freq[0] == 0 || freq[freq.length-1] == 0) return PTS_LG_STRT;
 		default:
 			return 0;
 		}
