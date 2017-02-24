@@ -50,18 +50,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		getAllScores();
 
 		int[] bestPlayerAndScore = getBest(nPlayers);
-		String bestPlayer = playerNames[bestPlayerAndScore [0]];
-		int bestScore = bestPlayerAndScore [1];
-		display.printMessage("Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
+		String bestPlayer = playerNames[bestPlayerAndScore[0]];
+		int bestScore = bestPlayerAndScore[1];
+		display.printMessage(
+				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
 
 	}
 
 	private int[] getBest(int nPlayers) {
-		int[] allTotalScores = new int [nPlayers];
-		for (int i = 0; i < allTotalScores.length; i++){
-			allTotalScores[i] = scoreCard[TOTAL-1][i];
+		int[] allTotalScores = new int[nPlayers];
+		for (int i = 0; i < allTotalScores.length; i++) {
+			allTotalScores[i] = scoreCard[TOTAL - 1][i];
 		}
-		
+
 		int bestPlayerIndex = 0;
 		int maxScore = allTotalScores[0];
 		for (int i = 0; i < allTotalScores.length; i++) {
@@ -91,7 +92,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				upperScore = upperScore + UPPER_BONUS_AMT;
 			}
 			display.updateScorecard(UPPER_SCORE, playerIndex + 1, upperScore);
-			
+
 			// get and display lower scores.
 			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower++) {
 				scoreCard[LOWER_SCORE - 1][playerIndex] = scoreCard[LOWER_SCORE - 1][playerIndex]
@@ -102,7 +103,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 			// update total score.
 			int totalScore = upperScore + lowerScore;
-			scoreCard[TOTAL-1][playerIndex]=totalScore;
+			scoreCard[TOTAL - 1][playerIndex] = totalScore;
 			display.updateScorecard(TOTAL, playerIndex + 1, totalScore);
 		}
 
@@ -140,14 +141,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 
 		display.printMessage("Select a category for this roll.");
-		
 
 		int score = 100;
 
 		int category = selectCategory(playerIndex);
 		// categorize; calculate score.
-		scoreCard[category-1][playerIndex-1] = score;
-		
+		scoreCard[category - 1][playerIndex - 1] = score;
+
 		int totalScore = updateTotal(score, playerIndex);
 
 		// display score;
@@ -156,46 +156,104 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		markAsUpdated(category, playerIndex);
 
 	}
-	
-	private int calculateScore (int category){
-		
-		// The easiest calculation among the categories is
-		// CHANCE - just adding up the numbers on the dice will do.
-		if (category == CHANCE){
-			int sum = 0;
-			for (int i = 0; i < diceValue.length; i++){
-				sum = sum + diceValue[i];
-			}
-			return sum;
+
+	private int calculateScore(int category) {
+
+		// The sum of all the values of the dice will be used
+		// by some categories if player chooses them. Therefore:
+		int sum = 0;
+		for (int i = 0; i < diceValue.length; i++) {
+			sum = sum + diceValue[i];
 		}
-		
-		// For the rest categories, it might be helpful to calculate the 
+
+		// For the rest categories, it might be helpful to calculate the
 		// frequency of the numbers on the dice
 		// by creating a new array that records the frequencies.
 		// For example, [1,0,1,1,1,1] means that
 		// the number "2" did not appear in this roll, while
 		// other five numbers appeared once each.
-		int[] freq = new int [6];
-		
-		for (int i = 0; i < diceValue.length; i++){
-			switch (diceValue[i]){
-			case 1: freq[0]++; break;
-			case 2: freq[1]++; break;
-			case 3: freq[2]++; break;
-			case 4: freq[3]++; break;
-			case 5: freq[4]++; break;
-			case 6: freq[5]++; break;
-			default: diceValue[i] = 0; break;
+		int[] freq = new int[6];
+
+		for (int i = 0; i < diceValue.length; i++) {
+			switch (diceValue[i]) {
+			case 1:
+				freq[0]++;
+				break;
+			case 2:
+				freq[1]++;
+				break;
+			case 3:
+				freq[2]++;
+				break;
+			case 4:
+				freq[3]++;
+				break;
+			case 5:
+				freq[4]++;
+				break;
+			case 6:
+				freq[5]++;
+				break;
+			default:
+				diceValue[i] = 0;
+				break;
 			}
 		}
-		
-		
-		
-		
-		
 
-		
-		
+		switch (category) {
+		case ONES:
+			if (freq[0] != 0)
+				return freq[0] * 1;
+			break;
+		case TWOS:
+			if (freq[1] != 0)
+				return freq[1] * 2;
+			break;
+		case THREES:
+			if (freq[2] != 0)
+				return freq[2] * 3;
+			break;
+		case FOURS:
+			if (freq[3] != 0)
+				return freq[3] * 4;
+			break;
+		case FIVES:
+			if (freq[4] != 0)
+				return freq[4] * 5;
+			break;
+		case SIXES:
+			if (freq[5] != 0)
+				return freq[5] * 6;
+			break;
+		case THREE_OF_A_KIND:
+			for (int i = 0; i < freq.length; i++) {
+				if (freq[i] >= 3)
+					return sum;
+			}
+			break;
+		case FOUR_OF_A_KIND:
+			for (int i = 0; i < freq.length; i++) {
+				if (freq[i] >= 4)
+					return sum;
+			}
+			break;
+		case FULL_HOUSE:
+			int twoCount = 0;
+			int threeCount = 0;
+			for (int i = 0; i < freq.length; i++) {
+				if (freq[i] == 2)
+					twoCount++;
+				if (freq[i] == 3)
+					threeCount++;
+			}
+			if (twoCount == 1 && threeCount == 1)
+				return PTS_FULL_HOUSE;
+			break;
+		case 
+		default:
+			return 0;
+		}
+
 	}
 
 	private int selectCategory(int playerIndex) {
