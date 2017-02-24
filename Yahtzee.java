@@ -159,6 +159,36 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	private int calculateScore (int category){
 		
+		int [] upperClass = new int [6];
+		for (int i = 0; i < upperClass.length; i++){
+			upperClass[i] = i+1;
+		}
+		for (int i = 0; i < upperClass.length; i++){
+			if (category == upperClass[i]){
+				int count = 0;
+				for (int k = 0; k < diceValue.length; k++){
+					if (diceValue[k] == upperClass [i]){
+						count ++;
+					}
+				}
+				return count * upperClass[i];
+			}
+		}
+		
+
+		if (category == YAHTZEE || category == CHANCE){
+			int sum = 0;
+			for (int i = 0; i < diceValue.length; i++){
+				sum = sum + diceValue[i];
+			}
+			return sum;
+		}
+		
+		
+		
+
+		
+		
 	}
 
 	private int selectCategory(int playerIndex) {
