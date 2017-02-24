@@ -27,13 +27,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private void playGame() {
+		
+		scoreCard = new int [N_CATEGORIES][nPlayers];
 
 		// for loop nPlayers.
 		// For one single player:
-		
-		
-		
-		
+
 		// Wait for the player to roll for the 1st time.
 		display.waitForPlayerToClickRoll(1);
 
@@ -43,10 +42,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			randomValue(i);
 		}
 		display.displayDice(diceValue);
-		
+
 		// check validity and categorization process:
-		
-		
+		if (YahtzeeMagicStub.checkCategory(diceValue, 1)){
+			
+		}
+
 		// Player has two chances to reshuffle as they like.
 		// Since the waitForPlayerToSelectDice method only returns
 		// when player rolls again (displayDice again),
@@ -64,20 +65,33 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 
 	}
-	
-	private void randomValue (int i){
+
+	/*
+	 * Method randomValue generates the random value for the i'th die,
+	 * and catches if exception occurs.
+	 * The range of i varies in different situations.
+	 */
+	private void randomValue(int i) {
 		try {
-			diceValue [i] = rg.nextInt(1,6);
-		} catch (ErrorException e){}
+			diceValue[i] = rg.nextInt(1, 6);
+		} catch (ErrorException e) {
+		}
 	}
 
+	private boolean checkCategory (int[] dice, int ctgr){
+		
+		
+		return false;
+	}
+	
 	/* Private instance variables */
 	private int nPlayers;
 	private String[] playerNames;
 	private YahtzeeDisplay display;
 	private RandomGenerator rg = new RandomGenerator();
 
-	// Define the dice array that holds the random dice value for each die in the array.
-	private int[] diceValue = new int[N_DICE]; 
-
+	// Define the dice array that holds the random dice value for each die in
+	// the array.
+	private int[] diceValue = new int[N_DICE];
+	private int [][] scoreCard;
 }
