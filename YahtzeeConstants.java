@@ -27,6 +27,9 @@ public interface YahtzeeConstants {
 	
 /** The number of turns in which one player can roll and reroll the dice */	
 	public static final int TURN_PER_PLAYER = 3;
+	
+/** The number of points that decides whether the player can get upper bonus */	
+	public static final int UPPER_BONUS_LIMIT = 63;
 
 /** The constants that specify categories on the scoresheet */
 	public static final int ONES = 1;
