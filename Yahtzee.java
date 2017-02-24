@@ -28,12 +28,21 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	private void playGame() {
 		
-		scoreCard = new int [N_CATEGORIES][nPlayers]; // 0-16, 0-3
-		isScoreUpdated = new boolean [N_SCORING_CATEGORIES][nPlayers]; // 0-12, 0-3
+		// Array scoreCard keeps track of the players' scores.
+		// It's N_CATEGORES (17) * number of players.
+		// When modifying the values in scoreCard, minus 1 from the parameters.
+		scoreCard = new int [N_CATEGORIES][nPlayers];
+		
+		// Array isScoreUpdated keeps track of whether the scoring part of the 
+		// scoreCard is already updated. If yes, player cannot modify the results,
+		// but can only turn to another category instead.
+		// It does not include the non-scoring parts of the scoreCard.
+		// When modifying the values in isScoreUpdated, minus 1 from the parameters.
+		isScoreUpdated = new boolean [N_SCORING_CATEGORIES][nPlayers]; 
 				
 		while (!gameEnds()){
 			for (int i = 1; i <= nPlayers; i++){
-				playOneRound(i);
+				playOneRound(i); // Here i starts at 1.
 			}
 		}
 		display.printMessage("Game ends."); 
@@ -41,8 +50,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private void playOneRound(int playerIndex) {
-		
-
 		
 		// Wait for the player to roll for the 1st time.
 		display.waitForPlayerToClickRoll(playerIndex);
@@ -109,6 +116,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 
+	/*
+	 * Method gameEnds stops players from rolling dice once 
+	 * all the scoring parts are filled with valid scores.
+	 * That is to say, when each element of isScoreUpdated is true (updated),
+	 * the game should end.
+	 */
 	private boolean gameEnds(){
 		for (int r = 0; r < isScoreUpdated.length; r++){
 			for (int c = 0; c < isScoreUpdated[0].length; c ++){
@@ -127,7 +140,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
 	private int[] diceValue = new int[N_DICE];
+	
+	// Define the score card for all players. It is to be initialized at the
+	// beginning of the game once the number of players is decided.
 	private int [][] scoreCard;
+	
+	// Use this boolean to keep track of whether the scoring part of the 
+	// scoreCard is already updated.
 	private boolean [][] isScoreUpdated;
 	
 
