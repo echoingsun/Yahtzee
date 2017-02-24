@@ -142,10 +142,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 		display.printMessage("Select a category for this roll.");
 
-		int score = 100;
-
 		int category = selectCategory(playerIndex);
 		// categorize; calculate score.
+		int score = calculateScore(category);
 		scoreCard[category - 1][playerIndex - 1] = score;
 
 		int totalScore = updateTotal(score, playerIndex);
@@ -261,11 +260,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			for (int i = 0; i < freq.length; i++){
 				if (freq[i] == 1) oneCount ++;
 			}
-			if (oneCount ==5 && (freq[0] == 0 || freq[freq.length-1] == 0) return PTS_LG_STRT;
+			if (oneCount ==5 && (freq[0] == 0 || freq[freq.length-1] == 0)) return PTS_LG_STRT;
 		default:
 			return 0;
 		}
-
+		return 0;
 	}
 
 	private int selectCategory(int playerIndex) {
