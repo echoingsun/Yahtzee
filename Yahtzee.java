@@ -81,21 +81,35 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			display.displayDice(diceValue);
 		}
-		
-		// categorize;
-		// check if used
+				
 		display.printMessage("Select a category for this roll.");
-		int category = display.waitForPlayerToSelectCategory();
+		// categorize;
+		
 		int score = 100;
-		scoreCard[N_CATEGORIES-1][playerIndex-1] = scoreCard[N_CATEGORIES-1][playerIndex-1] + score;
-		int totalScore = scoreCard[N_CATEGORIES-1][playerIndex-1];
 		
+		int category = display.waitForPlayerToSelectCategory();
+		checkIfUpdated(category, playerIndex);
 		
+		int totalScore = updateTotal(score, playerIndex);
+				
 		// display score;
 		display.updateScorecard(category, playerIndex, score); 
 		display.updateScorecard(N_CATEGORIES, playerIndex, totalScore);
 		markAsUpdated(category, playerIndex);
 		
+		
+	}
+
+	private int updateTotal(int score, int playerIndex) {
+		scoreCard[N_CATEGORIES-1][playerIndex-1] = scoreCard[N_CATEGORIES-1][playerIndex-1] + score;
+		int totalScore = scoreCard[N_CATEGORIES-1][playerIndex-1];
+		return totalScore;
+	}
+
+	private void checkIfUpdated(int category, int playerIndex) {
+		if (isScoreUpdated[category-1][playerIndex - 1] == true){
+			display.printMessage("This category has already been used. Choose a different category.");
+		}
 		
 	}
 
