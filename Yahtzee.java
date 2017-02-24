@@ -57,12 +57,16 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private int[] getBest(int nPlayers) {
-		int[] compare = new int[nPlayers];
+		int[] allTotalScores = new int [nPlayers];
+		for (int i = 0; i < allTotalScores.length; i++){
+			allTotalScores[i] = scoreCard[TOTAL-1][i];
+		}
+		
 		int bestPlayerIndex = 0;
-		int maxScore = compare[0];
-		for (int i = 0; i < compare.length; i++) {
-			if (compare[i] > maxScore) {
-				maxScore = compare[i];
+		int maxScore = allTotalScores[0];
+		for (int i = 0; i < allTotalScores.length; i++) {
+			if (allTotalScores[i] > maxScore) {
+				maxScore = allTotalScores[i];
 				bestPlayerIndex = i;
 			}
 		}
@@ -98,6 +102,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 			// update total score.
 			int totalScore = upperScore + lowerScore;
+			scoreCard[TOTAL-1][playerIndex]=totalScore;
 			display.updateScorecard(TOTAL, playerIndex + 1, totalScore);
 		}
 
