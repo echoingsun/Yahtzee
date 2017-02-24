@@ -31,6 +31,9 @@ public interface YahtzeeConstants {
 /** The constants about the upper score bonus */	
 	public static final int UPPER_BONUS_LIMIT = 63;
 	public static final int UPPER_BONUS_AMT = 35;
+	
+/** The constants about fixed points when player gets some of the lower scores */	
+	public static final int PTS_FULL_HOUSE = 25;
 
 /** The constants that specify categories on the scoresheet */
 	public static final int ONES = 1;
