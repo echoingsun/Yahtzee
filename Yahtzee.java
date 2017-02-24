@@ -106,11 +106,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private void checkIfUpdated(int category, int playerIndex) {
-		if (category <=6 && isScoreUpdated [category - 1][playerIndex - 1] == true){
-			display.printMessage("This category has already been used. Choose a different category.");
-		} else if (category >=9 && category <=15 && isScoreUpdated [category -3 ][playerIndex -1] == true){
-			display.printMessage("This category has already been used. Choose a different category.");
-		} 	
+		
+		boolean updated = (category <=6 && isScoreUpdated [category - 1][playerIndex - 1] == true) || (category >=9 && category <=15 && isScoreUpdated [category -3 ][playerIndex -1] == true);
+		if (updated){
+			display.printMessage("This category has already been used. Please choose a different category.");
+		}
 	}
 
 	private void markAsUpdated(int category, int playerIndex) {
