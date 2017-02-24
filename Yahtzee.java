@@ -43,17 +43,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		display.displayDice(diceValue);
 
-		// check validity and categorization process:
-		if (YahtzeeMagicStub.checkCategory(diceValue, 1)){
-			
-		}
-		
-		int score = 0;
-		for (int i = 0; i < N_DICE; i ++){
-			score = score + diceValue[i];
-		}
-		display.updateScorecard(1, 1, score);
-
+	
 		// Player has two chances to reshuffle as they like.
 		// Since the waitForPlayerToSelectDice method only returns
 		// when player rolls again (displayDice again),
@@ -69,6 +59,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			display.displayDice(diceValue);
 		}
+		
+		// check validity and categorization process:
+
+
+		int category = display.waitForPlayerToSelectCategory();
+		display.updateScorecard(category, 1, 100); 
+		
+		
 
 	}
 
@@ -84,11 +82,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 
-	private boolean checkCategory (int[] dice, int ctgr){
-		
-		
-		return false;
-	}
+
 	
 	/* Private instance variables */
 	private int nPlayers;
