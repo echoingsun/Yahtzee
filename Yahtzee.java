@@ -27,78 +27,84 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private void playGame() {
-		
+
 		// Array scoreCard keeps track of the players' scores.
 		// It's N_CATEGORES (17) * number of players.
 		// When modifying the values in scoreCard, minus 1 from the parameters.
-		scoreCard = new int [N_CATEGORIES][nPlayers];
-		
-		// Array isScoreUpdated keeps track of whether the scoring part of the 
-		// scoreCard is already updated. If yes, player cannot modify the results,
+		scoreCard = new int[N_CATEGORIES][nPlayers];
+
+		// Array isScoreUpdated keeps track of whether the scoring part of the
+		// scoreCard is already updated. If yes, player cannot modify the
+		// results,
 		// but can only turn to another category instead.
 		// It does not include the non-scoring parts of the scoreCard.
-		// When modifying the values in isScoreUpdated, minus 1 from the parameters.
-		isScoreUpdated = new boolean [N_SCORING_CATEGORIES][nPlayers]; 
-				
-		while (!gameEnds()){
-			for (int i = 1; i <= nPlayers; i++){
+		// When modifying the values in isScoreUpdated, minus 1 from the
+		// parameters.
+		isScoreUpdated = new boolean[N_SCORING_CATEGORIES][nPlayers];
+
+		while (!gameEnds()) {
+			for (int i = 1; i <= nPlayers; i++) {
 				playOneRound(i); // Here i starts at 1.
 			}
 		}
 		getAllScores();
-		int highestScore = getMaxScore(nPlayers);
-		display.printMessage("Game ends."); 
-	
+
+		int[] bestPlayerAndScore = getBest(nPlayers);
+		String bestPlayer = playerNames[bestPlayerAndScore [0]];
+		int bestScore = bestPlayerAndScore [1];
+		display.printMessage("Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
+
 	}
 
-
-
-	private int getMaxScore(int nPlayers) {
-		int [] compare = new int [nPlayers];
-		int maxScore = compare [0];
-		for (int i = 0; i < compare.length; i ++){
-			if (compare[i] > maxScore){
+	private int[] getBest(int nPlayers) {
+		int[] compare = new int[nPlayers];
+		int bestPlayerIndex = 0;
+		int maxScore = compare[0];
+		for (int i = 0; i < compare.length; i++) {
+			if (compare[i] > maxScore) {
 				maxScore = compare[i];
+				bestPlayerIndex = i;
 			}
 		}
-		return maxScore;
+		int[] bestPlayerAndScore = new int[2];
+		bestPlayerAndScore[0] = bestPlayerIndex;
+		bestPlayerAndScore[1] = maxScore;
+		return bestPlayerAndScore;
 	}
 
 	private void getAllScores() {
-		
-		for (int playerIndex = 0; playerIndex <nPlayers; playerIndex ++){
-			
+
+		for (int playerIndex = 0; playerIndex < nPlayers; playerIndex++) {
+
 			// get upper scores
-			for (int upper = ONES - 1; upper < SIXES; upper ++){
-				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex] + scoreCard [upper][playerIndex];
+			for (int upper = ONES - 1; upper < SIXES; upper++) {
+				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex]
+						+ scoreCard[upper][playerIndex];
 			}
 			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
-			if (upperScore >= UPPER_BONUS_LIMIT){
+			if (upperScore >= UPPER_BONUS_LIMIT) {
 				display.updateScorecard(UPPER_BONUS, playerIndex, UPPER_BONUS_AMT);
 				upperScore = upperScore + UPPER_BONUS_AMT;
 			}
 			display.updateScorecard(UPPER_SCORE, playerIndex, upperScore);
-			
-			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower ++){
-				scoreCard[LOWER_SCORE - 1][playerIndex] = scoreCard[LOWER_SCORE - 1][playerIndex] + scoreCard [lower][playerIndex];
-			}			
+
+			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower++) {
+				scoreCard[LOWER_SCORE - 1][playerIndex] = scoreCard[LOWER_SCORE - 1][playerIndex]
+						+ scoreCard[lower][playerIndex];
+			}
 			int lowerScore = scoreCard[LOWER_SCORE - 1][playerIndex];
 			display.updateScorecard(LOWER_SCORE, playerIndex, lowerScore);
-			
+
 			int totalScore = upperScore + lowerScore;
 			display.updateScorecard(TOTAL, playerIndex, totalScore);
 		}
-		
+
 	}
 
-
-
-
-
 	private void playOneRound(int playerIndex) {
-		
+
 		display.printMessage(playerNames[playerIndex - 1] + "'s turn! Click \"Roll Dice\" button to roll the dice.");
-		
+
 		// Wait for the player to roll for the 1st time.
 		display.waitForPlayerToClickRoll(playerIndex);
 
@@ -108,8 +114,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			randomValue(i);
 		}
 		display.displayDice(diceValue);
-		
-		
+
 		// Player has two chances to reshuffle as they like.
 		// Since the waitForPlayerToSelectDice method only returns
 		// when player rolls again (displayDice again),
@@ -126,57 +131,55 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			display.displayDice(diceValue);
 		}
-				
+
 		display.printMessage("Select a category for this roll.");
 		// categorize;
-		
+
 		int score = 100;
-		
+
 		int category = selectCategory(playerIndex);
-				
+
 		int totalScore = updateTotal(score, playerIndex);
-				
+
 		// display score;
-		display.updateScorecard(category, playerIndex, score); 
+		display.updateScorecard(category, playerIndex, score);
 		display.updateScorecard(TOTAL, playerIndex, totalScore);
 		markAsUpdated(category, playerIndex);
-		
-		
+
 	}
 
 	private int selectCategory(int playerIndex) {
 		int category = display.waitForPlayerToSelectCategory();
-		boolean updated = (category <=6 && isScoreUpdated [category - 1][playerIndex - 1] == true) || (category >=9 && category <=15 && isScoreUpdated [category -3 ][playerIndex -1] == true);
-		while (updated){
+		boolean updated = (category <= 6 && isScoreUpdated[category - 1][playerIndex - 1] == true)
+				|| (category >= 9 && category <= 15 && isScoreUpdated[category - 3][playerIndex - 1] == true);
+		while (updated) {
 			display.printMessage("This category has already been used. Please choose a different category.");
 			category = display.waitForPlayerToSelectCategory();
-			updated = (category <=6 && isScoreUpdated [category - 1][playerIndex - 1] == true) || (category >=9 && category <=15 && isScoreUpdated [category -3 ][playerIndex -1] == true);
+			updated = (category <= 6 && isScoreUpdated[category - 1][playerIndex - 1] == true)
+					|| (category >= 9 && category <= 15 && isScoreUpdated[category - 3][playerIndex - 1] == true);
 		}
 		return category;
-		
+
 	}
 
 	private int updateTotal(int score, int playerIndex) {
-		scoreCard[TOTAL-1][playerIndex-1] = scoreCard[TOTAL-1][playerIndex-1] + score;
-		int totalScore = scoreCard[TOTAL-1][playerIndex-1];
+		scoreCard[TOTAL - 1][playerIndex - 1] = scoreCard[TOTAL - 1][playerIndex - 1] + score;
+		int totalScore = scoreCard[TOTAL - 1][playerIndex - 1];
 		return totalScore;
 	}
 
-
-
 	private void markAsUpdated(int category, int playerIndex) {
-		if (category <=6){
-			isScoreUpdated [category - 1][playerIndex - 1] = true;
-		} else if (category >=9 && category <=15 ){
-			isScoreUpdated [category -3 ][playerIndex -1] = true;
-		} 		
+		if (category <= 6) {
+			isScoreUpdated[category - 1][playerIndex - 1] = true;
+		} else if (category >= 9 && category <= 15) {
+			isScoreUpdated[category - 3][playerIndex - 1] = true;
+		}
 	}
-	
 
 	/*
-	 * Method randomValue generates the random value for the i'th die,
-	 * and catches if exception occurs.
-	 * The range of i varies in different situations.
+	 * Method randomValue generates the random value for the i'th die, and
+	 * catches if exception occurs. The range of i varies in different
+	 * situations.
 	 */
 	private void randomValue(int i) {
 		try {
@@ -186,20 +189,20 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	/*
-	 * Method gameEnds stops players from rolling dice once 
-	 * all the scoring parts are filled with valid scores.
-	 * That is to say, when each element of isScoreUpdated is true (updated),
-	 * the game should end.
+	 * Method gameEnds stops players from rolling dice once all the scoring
+	 * parts are filled with valid scores. That is to say, when each element of
+	 * isScoreUpdated is true (updated), the game should end.
 	 */
-	private boolean gameEnds(){
-		for (int r = 0; r < isScoreUpdated.length; r++){
-			for (int c = 0; c < isScoreUpdated[0].length; c ++){
-				if (isScoreUpdated[r][c] == false) return false;
+	private boolean gameEnds() {
+		for (int r = 0; r < isScoreUpdated.length; r++) {
+			for (int c = 0; c < isScoreUpdated[0].length; c++) {
+				if (isScoreUpdated[r][c] == false)
+					return false;
 			}
 		}
 		return true;
 	}
-	
+
 	/* Private instance variables */
 	private int nPlayers;
 	private String[] playerNames;
@@ -209,14 +212,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
 	private int[] diceValue = new int[N_DICE];
-	
+
 	// Define the score card for all players. It is to be initialized at the
 	// beginning of the game once the number of players is decided.
-	private int [][] scoreCard;
-	
-	// Use this boolean to keep track of whether the scoring part of the 
+	private int[][] scoreCard;
+
+	// Use this boolean to keep track of whether the scoring part of the
 	// scoreCard is already updated.
-	private boolean [][] isScoreUpdated;
-	
+	private boolean[][] isScoreUpdated;
 
 }
