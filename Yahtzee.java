@@ -66,6 +66,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	}
 
+	/*
+	 * Method getBest 
+	 */
 	private int[] getBest(int nPlayers) {
 		int[] allTotalScores = new int[nPlayers];
 		for (int i = 0; i < allTotalScores.length; i++) {
