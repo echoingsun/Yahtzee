@@ -24,6 +24,9 @@ public interface YahtzeeConstants {
 
 /** The number of categories in which the player can score */
 	public static final int N_SCORING_CATEGORIES = 13;
+	
+/** The number of turns in which one player can roll and reroll the dice */	
+	public static final int TURN_PER_PLAYER = 3;
 
 /** The constants that specify categories on the scoresheet */
 	public static final int ONES = 1;
