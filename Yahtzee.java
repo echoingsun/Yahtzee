@@ -87,10 +87,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int score = 100;
 		
 		int category = display.waitForPlayerToSelectCategory();
-		//checkIfUpdated(category, playerIndex);
-		if (isScoreUpdated[category-1][playerIndex - 1] == true){
-			display.printMessage("This category has already been used. Choose a different category.");
-		}
+		checkIfUpdated(category, playerIndex);
 		
 		int totalScore = updateTotal(score, playerIndex);
 				
@@ -109,10 +106,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private void checkIfUpdated(int category, int playerIndex) {
-		if (isScoreUpdated[category-1][playerIndex - 1] == true){
+		if (category <=6 && isScoreUpdated [category - 1][playerIndex - 1] == true){
 			display.printMessage("This category has already been used. Choose a different category.");
-		}
-		
+		} else if (category >=9 && category <=15 && isScoreUpdated [category -3 ][playerIndex -1] == true){
+			display.printMessage("This category has already been used. Choose a different category.");
+		} 	
 	}
 
 	private void markAsUpdated(int category, int playerIndex) {
