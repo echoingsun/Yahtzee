@@ -45,14 +45,24 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				playOneRound(i); // Here i starts at 1.
 			}
 		}
-		
-
 		getAllScores();
+		int highestScore = getMaxScore(nPlayers);
 		display.printMessage("Game ends."); 
 	
 	}
 
 
+
+	private int getMaxScore(int nPlayers) {
+		int [] compare = new int [nPlayers];
+		int maxScore = compare [0];
+		for (int i = 0; i < nPlayers; i ++){
+			if (compare[i] > maxScore){
+				maxScore = compare[i];
+			}
+		}
+		return maxScore;
+	}
 
 	private void getAllScores() {
 		
