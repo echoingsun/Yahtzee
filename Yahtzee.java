@@ -50,7 +50,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		// call this method first, wait for player for their choices,
 		// and finally display the chosen dice.
 		// This process repeats twice.
-		for (int i = 0; i < TURN_PER_PLAYER; i++) {
+		for (int i = 0; i < TURN_PER_PLAYER - 1; i++) {
 			display.waitForPlayerToSelectDice();
 			for (int k = 0; k < N_DICE - 1; k++) {
 				if (display.isDieSelected(k)) {
