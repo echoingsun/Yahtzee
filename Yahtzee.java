@@ -145,7 +145,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int score = 100;
 
 		int category = selectCategory(playerIndex);
-		// categorize;
+		// categorize; calculate score.
 		scoreCard[category-1][playerIndex-1] = score;
 		
 		int totalScore = updateTotal(score, playerIndex);
@@ -159,30 +159,15 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	private int calculateScore (int category){
 		
-		int [] upperClass = new int [6];
-		for (int i = 0; i < upperClass.length; i++){
-			upperClass[i] = i+1;
-		}
-		for (int i = 0; i < upperClass.length; i++){
-			if (category == upperClass[i]){
-				int count = 0;
-				for (int k = 0; k < diceValue.length; k++){
-					if (diceValue[k] == upperClass [i]){
-						count ++;
-					}
-				}
-				return count * upperClass[i];
-			}
-		}
+		// Calculate the frequency of the numbers on the dice
+		// by creating a new array that records the frequencies.
+		// For example, [1,0,1,1,1,1] means that
+		// the number "2" did not appear in this roll, while
+		// other five numbers appeared once each.
+		
+		new int[] freq = new int [6];
 		
 
-		if (category == YAHTZEE || category == CHANCE){
-			int sum = 0;
-			for (int i = 0; i < diceValue.length; i++){
-				sum = sum + diceValue[i];
-			}
-			return sum;
-		}
 		
 		
 		
