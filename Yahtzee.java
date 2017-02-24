@@ -40,12 +40,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		
 		display.waitForPlayerToSelectDice();
 		
-		display.waitForPlayerToClickRoll(1);		
+			
 		for (int i = 0; i < N_DICE; i ++){
 			if (display.isDieSelected(i)){
 				arrayNDICE [i] = rg.nextInt(1,6);
 			}
 		}
+		display.displayDice(arrayNDICE);	
 		
 
 		
