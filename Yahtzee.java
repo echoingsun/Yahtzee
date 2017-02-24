@@ -48,16 +48,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 		
-		// Calculate all parts of scores of all players.
+		// Calculate and display all parts of scores of all players.
 		getAllScores(); 
 
 		// Store the best score and the player who scored it into an array
 		// that has two elements, namely player(index) and best score.
 		int[] bestPlayerAndScore = getBest(nPlayers);
 		
-		
+		// Get the player name through the player index obtained above.
 		String bestPlayer = playerNames[bestPlayerAndScore[0]];
+		
+		// Similarly, return the best score.
 		int bestScore = bestPlayerAndScore[1];
+		
 		display.printMessage(
 				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
 
