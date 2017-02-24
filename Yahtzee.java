@@ -42,8 +42,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	private void playOneRound(int playerIndex) {
 		
-		// Initialize the total score of one player
-		int totalScore = scoreCard[N_CATEGORIES - 1][playerIndex - 1];
+
 		
 		// Wait for the player to roll for the 1st time.
 		display.waitForPlayerToClickRoll(playerIndex);
@@ -77,12 +76,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		
 		int category = display.waitForPlayerToSelectCategory();
 		int score = 100;
-		totalScore += score;
+		scoreCard[N_CATEGORIES-1][playerIndex] = scoreCard[N_CATEGORIES-1][playerIndex] + score;
+		int totalScore = scoreCard[N_CATEGORIES-1][playerIndex];
 		
 		
 		// display score;
 		display.updateScorecard(category, playerIndex, score); 
-		display.updateScorecard(N_CATEGORIES-1, playerIndex, totalScore);
+		display.updateScorecard(N_CATEGORIES, playerIndex, totalScore);
 		markAsUpdated(category, playerIndex);
 		
 		
