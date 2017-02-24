@@ -34,6 +34,7 @@ public interface YahtzeeConstants {
 	
 /** The constants about fixed points when player gets some of the lower scores */	
 	public static final int PTS_FULL_HOUSE = 25;
+	public static final int PTS_YAHTZEE = 50;
 
 /** The constants that specify categories on the scoresheet */
 	public static final int ONES = 1;
