@@ -63,9 +63,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 		display.displayDice(diceValue);
 		
-		display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
-
-	
+		
 		// Player has two chances to reshuffle as they like.
 		// Since the waitForPlayerToSelectDice method only returns
 		// when player rolls again (displayDice again),
@@ -73,6 +71,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		// and finally display the chosen dice.
 		// This process repeats twice.
 		for (int i = 0; i < TURN_PER_PLAYER - 1; i++) {
+			display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
 			display.waitForPlayerToSelectDice();
 			for (int k = 0; k < N_DICE - 1; k++) {
 				if (display.isDieSelected(k)) {
