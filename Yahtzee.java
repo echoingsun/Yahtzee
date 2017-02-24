@@ -29,6 +29,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playGame() {
 		
 		scoreCard = new int [N_CATEGORIES][nPlayers];
+		updatedScores = new int [N_CATEGORIES][nPlayers];
 		
 		while (!gameEnds()){
 			for (int i = 1; i <= nPlayers; i++){
@@ -74,6 +75,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		
 		// display score;
 		display.updateScorecard(category, 1, 100); 
+		updatedScores [category][playerIndex] = 1;
 		
 	}
 
@@ -90,9 +92,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private boolean gameEnds(){
-		for (int r = 0; r < scoreCard.length; r++){
-			for (int c = 0; c < scoreCard[0].length; c ++){
-				if (Integer.toString(scoreCard[r][c]).isEmpty()) return true;
+		for (int r = 0; r < updatedScores.length; r++){
+			for (int c = 0; c < updatedScores[0].length; c ++){
+				if (updatedScores[r][c] == 0) return true;
 			}
 		}
 		return false;
@@ -108,6 +110,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	// the array.
 	private int[] diceValue = new int[N_DICE];
 	private int [][] scoreCard;
+	private int [][] updatedScores;
 	
 
 }
