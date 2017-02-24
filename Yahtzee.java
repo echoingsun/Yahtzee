@@ -138,7 +138,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int score = 100;
 
 		int category = selectCategory(playerIndex);
-
+		scoreCard[category-1][playerIndex-1] = score;
+		
 		int totalScore = updateTotal(score, playerIndex);
 
 		// display score;
