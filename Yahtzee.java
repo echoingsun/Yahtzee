@@ -1,3 +1,4 @@
+
 /*
  * File: Yahtzee.java
  * ------------------
@@ -9,11 +10,11 @@ import acm.program.*;
 import acm.util.*;
 
 public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
-	
+
 	public static void main(String[] args) {
 		new Yahtzee().start(args);
 	}
-	
+
 	public void run() {
 		IODialog dialog = getDialog();
 		nPlayers = dialog.readInt("Enter number of players");
@@ -29,41 +30,54 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 		// for loop nPlayers.
 		// For one single player:
-		display.waitForPlayerToClickRoll(1);
-		try {
-			for (int i = 0; i < N_DICE; i ++){
-				arrayNDICE [i] = rg.nextInt(1,6);
-			}
-		} catch (ErrorException e){};
-
-		display.displayDice(arrayNDICE);
 		
-		for (int i = 0; i < TURN_PER_PLAYER; i ++) {
+		
+		
+		
+		// Wait for the player to roll for the 1st time.
+		display.waitForPlayerToClickRoll(1);
+
+		// Give a random 1-6 value to each die in the dice array.
+		// Show the values on the screen.
+		for (int i = 0; i < N_DICE; i++) {
+			randomValue(i);
+		}
+		display.displayDice(diceValue);
+		
+		// check validity and categorization process:
+		
+		
+		// Player has two chances to reshuffle as they like.
+		// Since the waitForPlayerToSelectDice method only returns
+		// when player rolls again (displayDice again),
+		// call this method first, wait for player for their choices,
+		// and finally display the chosen dice.
+		// This process repeats twice.
+		for (int i = 0; i < TURN_PER_PLAYER; i++) {
 			display.waitForPlayerToSelectDice();
-			for (int k = 1; k < N_DICE; k ++){
-				if (display.isDieSelected(k)){
-					arrayNDICE [k] = rg.nextInt(1,6);
+			for (int k = 0; k < N_DICE - 1; k++) {
+				if (display.isDieSelected(k)) {
+					randomValue(k);
 				}
 			}
-			display.displayDice(arrayNDICE);
+			display.displayDice(diceValue);
 		}
-		
-		
-		
-			
-			
-		
 
-		
-		
 	}
-		
-/* Private instance variables */
+	
+	private void randomValue (int i){
+		try {
+			diceValue [i] = rg.nextInt(1,6);
+		} catch (ErrorException e){}
+	}
+
+	/* Private instance variables */
 	private int nPlayers;
 	private String[] playerNames;
 	private YahtzeeDisplay display;
 	private RandomGenerator rg = new RandomGenerator();
-	
-	private int[] arrayNDICE = new int [N_DICE];
+
+	// Define the dice array that holds the random dice value for each die in the array.
+	private int[] diceValue = new int[N_DICE]; 
 
 }
