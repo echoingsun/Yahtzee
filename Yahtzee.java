@@ -62,6 +62,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			randomValue(i);
 		}
 		display.displayDice(diceValue);
+		
+		display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
 
 	
 		// Player has two chances to reshuffle as they like.
