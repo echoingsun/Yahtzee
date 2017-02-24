@@ -56,7 +56,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private int getMaxScore(int nPlayers) {
 		int [] compare = new int [nPlayers];
 		int maxScore = compare [0];
-		for (int i = 0; i < nPlayers; i ++){
+		for (int i = 0; i < compare.length; i ++){
 			if (compare[i] > maxScore){
 				maxScore = compare[i];
 			}
