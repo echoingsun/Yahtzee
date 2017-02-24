@@ -94,7 +94,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private boolean gameEnds(){
 		for (int r = 0; r < updatedScores.length; r++){
 			for (int c = 0; c < updatedScores[0].length; c ++){
-				if (updatedScores[r][c] == 0) return false;
+				if (updatedScores[r][c] != 1) return false;
 			}
 		}
 		return true;
