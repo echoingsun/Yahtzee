@@ -83,20 +83,20 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
 			if (upperScore >= UPPER_BONUS_LIMIT) {
-				display.updateScorecard(UPPER_BONUS, playerIndex, UPPER_BONUS_AMT);
+				display.updateScorecard(UPPER_BONUS, playerIndex + 1, UPPER_BONUS_AMT);
 				upperScore = upperScore + UPPER_BONUS_AMT;
 			}
-			display.updateScorecard(UPPER_SCORE, playerIndex, upperScore);
+			display.updateScorecard(UPPER_SCORE, playerIndex + 1, upperScore);
 
 			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower++) {
 				scoreCard[LOWER_SCORE - 1][playerIndex] = scoreCard[LOWER_SCORE - 1][playerIndex]
 						+ scoreCard[lower][playerIndex];
 			}
 			int lowerScore = scoreCard[LOWER_SCORE - 1][playerIndex];
-			display.updateScorecard(LOWER_SCORE, playerIndex, lowerScore);
+			display.updateScorecard(LOWER_SCORE, playerIndex + 1, lowerScore);
 
 			int totalScore = upperScore + lowerScore;
-			display.updateScorecard(TOTAL, playerIndex, totalScore);
+			display.updateScorecard(TOTAL, playerIndex + 1, totalScore);
 		}
 
 	}
