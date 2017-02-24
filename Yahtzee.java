@@ -29,12 +29,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playGame() {
 		
 		scoreCard = new int [N_CATEGORIES][nPlayers];
+		
+		while (!gameEnds()){
+			for (int i = 1; i <= nPlayers; i++){
+				playOneRound(i);
+			}
+		}
+	
+	}
 
-		// for loop nPlayers.
-		// For one single player:
+	private void playOneRound(int playerIndex) {
 
 		// Wait for the player to roll for the 1st time.
-		display.waitForPlayerToClickRoll(1);
+		display.waitForPlayerToClickRoll(playerIndex);
 
 		// Give a random 1-6 value to each die in the dice array.
 		// Show the values on the screen.
@@ -60,14 +67,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			display.displayDice(diceValue);
 		}
 		
-		// check validity and categorization process:
-
-
+		// categorize;
+		// check if used
+		
 		int category = display.waitForPlayerToSelectCategory();
+		
+		// display score;
 		display.updateScorecard(category, 1, 100); 
 		
-		
-
 	}
 
 	/*
@@ -82,7 +89,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		}
 	}
 
-
+	private boolean gameEnds(){
+		for (int r = 0; r < scoreCard.length; r++){
+			for (int c = 0; c < scoreCard[0].length; c ++){
+				if (Integer.toString(scoreCard[r][c]).isEmpty()) return true;
+			}
+		}
+		return false;
+	}
 	
 	/* Private instance variables */
 	private int nPlayers;
@@ -94,4 +108,6 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	// the array.
 	private int[] diceValue = new int[N_DICE];
 	private int [][] scoreCard;
+	
+
 }
