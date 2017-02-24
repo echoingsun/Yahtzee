@@ -51,6 +51,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	private void playOneRound(int playerIndex) {
 		
+		display.printMessage(playerNames[playerIndex - 1] + "'s turn! Click "Roll Dice" button to roll the dice.");
+		
 		// Wait for the player to roll for the 1st time.
 		display.waitForPlayerToClickRoll(playerIndex);
 
