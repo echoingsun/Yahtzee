@@ -47,6 +47,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		if (YahtzeeMagicStub.checkCategory(diceValue, 1)){
 			
 		}
+		
+		int score = 0;
+		for (int i = 0; i < N_DICE; i ++){
+			score = score + diceValue[i];
+		}
+		display.updateScorecard(1, 1, score);
 
 		// Player has two chances to reshuffle as they like.
 		// Since the waitForPlayerToSelectDice method only returns
