@@ -29,7 +29,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	private void playGame() {
 		
 		scoreCard = new int [N_CATEGORIES][nPlayers]; // 0-16, 0-3
-		updatedScores = new int [N_SCORING_CATEGORIES][nPlayers]; // 0-12, 0-3
+		isScoreUpdated = new boolean [N_SCORING_CATEGORIES][nPlayers]; // 0-12, 0-3
 		
 		while (!gameEnds()){
 			for (int i = 1; i <= nPlayers; i++){
@@ -75,10 +75,19 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		int category = display.waitForPlayerToSelectCategory();
 		
 		// display score;
-		display.updateScorecard(category, 1, 100); 
-		updatedScores [category -1][playerIndex -1 ] = 1;
+		display.updateScorecard(category, playerIndex, 100); 
+		markAsUpdated(category, playerIndex);
 		
 	}
+
+	private void markAsUpdated(int category, int playerIndex) {
+		if (category <=6){
+			isScoreUpdated [category - 1][playerIndex - 1] = true;
+		} else if (category >=9 && category <=15 ){
+			isScoreUpdated [category -3 ][playerIndex -1] = true;
+		} 		
+	}
+	
 
 	/*
 	 * Method randomValue generates the random value for the i'th die,
@@ -93,9 +102,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	private boolean gameEnds(){
-		for (int r = 0; r < updatedScores.length; r++){
-			for (int c = 0; c < updatedScores[0].length; c ++){
-				if (updatedScores[r][c] != 1) return false;
+		for (int r = 0; r < isScoreUpdated.length; r++){
+			for (int c = 0; c < isScoreUpdated[0].length; c ++){
+				if (isScoreUpdated[r][c] == false) return false;
 			}
 		}
 		return true;
@@ -111,7 +120,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	// the array.
 	private int[] diceValue = new int[N_DICE];
 	private int [][] scoreCard;
-	private int [][] updatedScores;
+	private boolean [][] isScoreUpdated;
 	
 
 }
