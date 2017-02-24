@@ -76,7 +76,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 		for (int playerIndex = 0; playerIndex < nPlayers; playerIndex++) {
 
-			// get upper scores
+			// get and display upper scores and bonus if applicable,.
 			for (int upper = ONES - 1; upper < SIXES; upper++) {
 				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex]
 						+ scoreCard[upper][playerIndex];
@@ -87,7 +87,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				upperScore = upperScore + UPPER_BONUS_AMT;
 			}
 			display.updateScorecard(UPPER_SCORE, playerIndex + 1, upperScore);
-
+			
+			// get and display lower scores.
 			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower++) {
 				scoreCard[LOWER_SCORE - 1][playerIndex] = scoreCard[LOWER_SCORE - 1][playerIndex]
 						+ scoreCard[lower][playerIndex];
@@ -95,6 +96,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			int lowerScore = scoreCard[LOWER_SCORE - 1][playerIndex];
 			display.updateScorecard(LOWER_SCORE, playerIndex + 1, lowerScore);
 
+			// update total score.
 			int totalScore = upperScore + lowerScore;
 			display.updateScorecard(TOTAL, playerIndex + 1, totalScore);
 		}
