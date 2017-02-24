@@ -36,6 +36,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				playOneRound(i);
 			}
 		}
+		display.printMessage("Game ends."); 
 	
 	}
 
