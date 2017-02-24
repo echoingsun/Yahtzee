@@ -254,6 +254,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				if (freq[i] == 5) return PTS_YAHTZEE;
 			}
 			break;
+		case CHANCE:
+			return sum;
+			
 		default:
 			return 0;
 		}
