@@ -250,21 +250,34 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			break;
 		case YAHTZEE:
 			for (int i = 0; i < freq.length; i++) {
-				if (freq[i] == 5) return PTS_YAHTZEE;
+				if (freq[i] == 5)
+					return PTS_YAHTZEE;
 			}
 			break;
 		case CHANCE:
 			return sum;
 		case LARGE_STRAIGHT:
 			int oneCount = 0;
-			for (int i = 0; i < freq.length; i++){
-				if (freq[i] == 1) oneCount ++;
+			for (int i = 0; i < freq.length; i++) {
+				if (freq[i] == 1)
+					oneCount++;
 			}
-			if (oneCount ==5 && (freq[0] == 0 || freq[freq.length-1] == 0)) return PTS_LG_STRT;
+			if (oneCount == 5 && (freq[0] == 0 || freq[5] == 0))
+				return PTS_LG_STRT;
 			break;
 		case SMALL_STRAIGHT:
-			int oneCount = 0;
-			int twoCount = 0;
+			oneCount = 0;
+			twoCount = 0;
+			for (int i = 0; i < freq.length; i++){
+				if (freq[i] == 1) oneCount ++;
+				if (freq[i] == 2) twoCount ++;
+			}
+			
+			boolean allAppearedOnce = oneCount == 5 && (freq[0] == 0 || freq[5] == 0 || freq[1] == 0 || freq[4] == 0);
+			boolean someAppearedTwice = twoCount == 1 && oneCount == 3 && ((freq[4] == 0 && freq[5] == 0) || (freq[0] == 0 && freq[5] == 0) || (freq[0] ==0 && freq[1] ==0));
+			boolean isSmallStraight = allAppearedOnce || someAppearedTwice;
+			if (isSmallStraight) return PTS_SML_STRT;
+			break;
 			
 		default:
 			return 0;
