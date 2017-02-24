@@ -46,33 +46,44 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 		
-		getUpperScore();
-		getLowerScore();
-		getTotalScore();
+
+		getAllScores();
 		display.printMessage("Game ends."); 
 	
 	}
 
-	private void getLowerScore() {
+
+
+	private void getAllScores() {
+		
 		for (int playerIndex = 0; playerIndex <nPlayers; playerIndex ++){
+			
+			// get upper scores
+			for (int upper = ONES - 1; upper < SIXES; upper ++){
+				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex] + scoreCard [upper][playerIndex];
+			}
+			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
+			if (upperScore >= UPPER_BONUS_LIMIT){
+				display.updateScorecard(UPPER_BONUS, playerIndex, UPPER_BONUS_AMT);
+				upperScore = upperScore + UPPER_BONUS_AMT;
+			}
+			display.updateScorecard(UPPER_SCORE, playerIndex, upperScore);
+			
 			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower ++){
 				scoreCard[LOWER_SCORE - 1][playerIndex] = scoreCard[LOWER_SCORE - 1][playerIndex] + scoreCard [lower][playerIndex];
-			}
+			}			
 			int lowerScore = scoreCard[LOWER_SCORE - 1][playerIndex];
 			display.updateScorecard(LOWER_SCORE, playerIndex, lowerScore);
+			
+			int totalScore = upperScore + lowerScore;
+			display.updateScorecard(TOTAL, playerIndex, totalScore);
 		}
 		
 	}
 
-	private void getUpperScore() {
-		for (int playerIndex = 0; playerIndex <nPlayers; playerIndex ++){
-			for (int upper = 0; upper < SIXES; upper ++){
-				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex] + scoreCard [upper][playerIndex];
-			}
-			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
-			display.updateScorecard(UPPER_SCORE, playerIndex, upperScore);
-		}
-	}
+
+
+
 
 	private void playOneRound(int playerIndex) {
 		
