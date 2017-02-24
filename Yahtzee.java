@@ -159,15 +159,37 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	
 	private int calculateScore (int category){
 		
-		// Calculate the frequency of the numbers on the dice
+		// The easiest calculation among the categories is
+		// CHANCE - just adding up the numbers on the dice will do.
+		if (category == CHANCE){
+			int sum = 0;
+			for (int i = 0; i < diceValue.length; i++){
+				sum = sum + diceValue[i];
+			}
+			return sum;
+		}
+		
+		// For the rest categories, it might be helpful to calculate the 
+		// frequency of the numbers on the dice
 		// by creating a new array that records the frequencies.
 		// For example, [1,0,1,1,1,1] means that
 		// the number "2" did not appear in this roll, while
 		// other five numbers appeared once each.
+		int[] freq = new int [6];
 		
-		new int[] freq = new int [6];
+		for (int i = 0; i < diceValue.length; i++){
+			switch (diceValue[i]){
+			case 1: freq[0]++; break;
+			case 2: freq[1]++; break;
+			case 3: freq[2]++; break;
+			case 4: freq[3]++; break;
+			case 5: freq[4]++; break;
+			case 6: freq[5]++; break;
+			default: diceValue[i] = 0; break;
+			}
+		}
 		
-
+		
 		
 		
 		
