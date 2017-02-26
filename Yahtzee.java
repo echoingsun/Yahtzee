@@ -417,9 +417,15 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	}
 
+	/*
+	 * Method updateTotal takes in a score and the player index,
+	 * and update the the total score in the scoreCard array.
+	 * This is to be displayed on the screen later.
+	 */
 	private int updateTotal(int score, int playerIndex) {
-		scoreCard[TOTAL - 1][playerIndex - 1] = scoreCard[TOTAL - 1][playerIndex - 1] + score;
 		int totalScore = scoreCard[TOTAL - 1][playerIndex - 1];
+		totalScore = totalScore + score;
+		
 		return totalScore;
 	}
 
