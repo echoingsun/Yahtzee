@@ -1,20 +1,11 @@
 
 /*
- * File: Extension_Yahtzee_RS.java
- * Name: Rachel Sun
+ * Pair assignment by Rachel Sun & Yingdan Lu
+ * File: Yahtzee.java
  * ------------------
- * This is the extended version of Yahtzee game.
- * I added the following functions:
+ * This program will eventually play the Yahtzee game.
  */
 
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JButton;
-
-import acm.graphics.GCanvas;
-import acm.graphics.GLabel;
-import acm.graphics.GObject;
 import acm.io.*;
 import acm.program.*;
 import acm.util.*;
@@ -24,20 +15,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	public static void main(String[] args) {
 		new Extension_Yahtzee_RS().start(args);
 	}
-	
-	public void mouseClicked(MouseEvent e){
-		double x = e.getX();
-		double y = e.getY();
-		GObject obj = getElementAt(x,y);
-		if (obj == startGame){
-			removeAll();
-			runTheGame();
-		}
-		
-		
-	}
-	private void runTheGame() {
-		
+
+	public void run() {
 		IODialog dialog = getDialog();
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
@@ -46,15 +25,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
 		playGame();
-		
-	}
-
-	public void run() {
-		add(welcome);
-		add (startGame, getWidth() / 2, getHeight() / 2);
-		addMouseListeners();
-		
-		
 	}
 
 	private void playGame() {
@@ -508,9 +478,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[] playerNames;
 	private YahtzeeDisplay display;
 	private RandomGenerator rg = new RandomGenerator();
-	
-	private GCanvas welcome = new GCanvas();
-	private GLabel startGame = new GLabel ("Start Game");
 
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
