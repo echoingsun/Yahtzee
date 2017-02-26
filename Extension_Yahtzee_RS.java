@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 import acm.graphics.GCanvas;
+import acm.graphics.GLabel;
+import acm.graphics.GObject;
 import acm.io.*;
 import acm.program.*;
 import acm.util.*;
@@ -23,10 +25,19 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		new Extension_Yahtzee_RS().start(args);
 	}
 	
-	public void actionPerformed(ActionEvent e){
-		runTheGame();
+	public void mouseClicked(MouseEvent e){
+		double x = e.getX();
+		double y = e.getY();
+		GObject obj = getElementAt(x,y);
+		if (obj == startGame){
+			removeAll();
+			runTheGame();
+		}
+		
+		
 	}
 	private void runTheGame() {
+		
 		IODialog dialog = getDialog();
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
@@ -40,8 +51,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 	public void run() {
 		add(welcome);
-		add (startGame, CENTER);
-		addActionListeners();
+		add (startGame, getWidth() / 2, getHeight() / 2);
+		addMouseListeners();
 		
 		
 	}
@@ -499,7 +510,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private RandomGenerator rg = new RandomGenerator();
 	
 	private GCanvas welcome = new GCanvas();
-	private JButton startGame = new JButton ("Start Game");
+	private GLabel startGame = new GLabel ("Start Game");
 
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
