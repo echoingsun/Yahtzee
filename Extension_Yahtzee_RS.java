@@ -117,6 +117,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 					fameScore[i+1] = fameScore[i];
 				}					
 				fameScore[i] = theirScores;
+				fameName[i] = playerNames[playerIndex];
 				break;
 			}
 		}
