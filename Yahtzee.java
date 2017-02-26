@@ -47,37 +47,38 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				playOneRound(i); // Here i starts at 1.
 			}
 		}
-		
+
 		// Calculate and display all parts of scores of all players.
-		getAllScores(); 
+		getAllScores();
 
 		// Store the best score and the player who scored it into an array
 		// that has two elements, namely player(index) and best score.
 		int[] bestPlayerAndScore = getBest(nPlayers);
-		
+
 		// Get the player name through the player index obtained above.
 		String bestPlayer = playerNames[bestPlayerAndScore[0]];
-		
+
 		// Similarly, return the best score.
 		int bestScore = bestPlayerAndScore[1];
-		
+
 		display.printMessage(
 				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
 
 	}
 
 	/*
-	 * Method getBest takes nPlayers as input and returns an integer array
-	 * that has two elements: the index of the player that has the best score
-	 * and that best score.
+	 * Method getBest takes nPlayers as input and returns an integer array that
+	 * has two elements: the index of the player that has the best score and
+	 * that best score.
 	 */
 	private int[] getBest(int nPlayers) {
-		
-		// Make the total score row into a new array that has nPlayers number of elements.
+
+		// Make the total score row into a new array that has nPlayers number of
+		// elements.
 		// Pass the total score from the scorecard to the new array.
-		int[] allTotalScores = new int[nPlayers]; 
+		int[] allTotalScores = new int[nPlayers];
 		for (int i = 0; i < allTotalScores.length; i++) {
-			allTotalScores[i] = scoreCard[TOTAL - 1][i]; 
+			allTotalScores[i] = scoreCard[TOTAL - 1][i];
 		}
 
 		// Compare the total scores and get the highest.
@@ -92,7 +93,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				bestPlayerIndex = i;
 			}
 		}
-		
+
 		// Create the array this method is going to return.
 		// Put in the best player index and his score.
 		int[] bestPlayerAndScore = new int[2];
@@ -100,31 +101,38 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		bestPlayerAndScore[1] = maxScore;
 		return bestPlayerAndScore;
 	}
-	
+
 	/*
-	 * Method getAllScores sums up the upper, lower and total scores of all players,
-	 * and display them on the screen.
+	 * Method getAllScores sums up the upper, lower and total scores of all
+	 * players, and display them on the screen.
 	 */
 	private void getAllScores() {
 
-		// Loop through each player and calculate upper, lower and totals respectively.
+		// Loop through each player and calculate upper, lower and totals
+		// respectively.
 		for (int playerIndex = 0; playerIndex < nPlayers; playerIndex++) {
 
-			// For each one player, get and display upper scores and bonus if applicable.
-			// The upper categories are from 1-6, but in the scoreCard they range from 0 - 5.
-			// Category 7 (in scorecard, index 6) adds up the scores in the upper categories.
+			// For each one player, get and display upper scores and bonus if
+			// applicable.
+			// The upper categories are from 1-6, but in the scoreCard they
+			// range from 0 - 5.
+			// Category 7 (in scorecard, index 6) adds up the scores in the
+			// upper categories.
+			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
 			for (int upper = ONES - 1; upper < SIXES; upper++) {
-				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex]
-						+ scoreCard[upper][playerIndex];
+				upperScore = scoreCard[UPPER_SCORE - 1][playerIndex]+ upperScore;
 			}
-			
+
 			// For convenience, define int upperScore to store the value.
 			// Apply bonus if applicable.
 			// Display upperScore and upperBonus.
-			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
+			
+			int bonusIfAny = scoreCard[UPPER_BONUS - 1][playerIndex];
 			if (upperScore >= UPPER_BONUS_LIMIT) {
-				display.updateScorecard(UPPER_BONUS, playerIndex + 1, UPPER_BONUS_AMT);
-				upperScore = upperScore + UPPER_BONUS_AMT;
+				bonusIfAny = UPPER_BONUS_AMT; 
+				display.updateScorecard(UPPER_BONUS, playerIndex + 1, bonusIfAny); 
+			} else {
+				bonusIfAny = 0;
 			}
 			display.updateScorecard(UPPER_SCORE, playerIndex + 1, upperScore);
 
@@ -303,17 +311,21 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		case SMALL_STRAIGHT:
 			oneCount = 0;
 			twoCount = 0;
-			for (int i = 0; i < freq.length; i++){
-				if (freq[i] == 1) oneCount ++;
-				if (freq[i] == 2) twoCount ++;
+			for (int i = 0; i < freq.length; i++) {
+				if (freq[i] == 1)
+					oneCount++;
+				if (freq[i] == 2)
+					twoCount++;
 			}
-			
+
 			boolean allAppearedOnce = oneCount == 5 && (freq[0] == 0 || freq[5] == 0 || freq[1] == 0 || freq[4] == 0);
-			boolean someAppearedTwice = twoCount == 1 && oneCount == 3 && ((freq[4] == 0 && freq[5] == 0) || (freq[0] == 0 && freq[5] == 0) || (freq[0] ==0 && freq[1] ==0));
+			boolean someAppearedTwice = twoCount == 1 && oneCount == 3 && ((freq[4] == 0 && freq[5] == 0)
+					|| (freq[0] == 0 && freq[5] == 0) || (freq[0] == 0 && freq[1] == 0));
 			boolean isSmallStraight = allAppearedOnce || someAppearedTwice;
-			if (isSmallStraight) return PTS_SML_STRT;
+			if (isSmallStraight)
+				return PTS_SML_STRT;
 			break;
-			
+
 		default:
 			return 0;
 		}
