@@ -184,16 +184,28 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 		display.printMessage("Select a category for this roll.");
 
+		// Once the player has used up two re-roll chances,
+		// let them pick a category and calculate the score
+		// according to the category they picked.
 		int category = selectCategory(playerIndex);
-		// categorize; calculate score.
 		int score = calculateScore(category);
-		scoreCard[category - 1][playerIndex - 1] = score;
+		
+		// For each category they finally pick, update their score card.
+		// This is different from simply displaying the score.
+		// It stores all the scores into the 2D scoreCard array.
+		// Here category and playerIndex starts at 1,
+		// So minus 1 when playing with the array thing.
+		scoreCard[category - 1][playerIndex - 1] = score; 
 
+		// For every score recorded, update the player's total score.
 		int totalScore = updateTotal(score, playerIndex);
 
 		// display score;
 		display.updateScorecard(category, playerIndex, score);
 		display.updateScorecard(TOTAL, playerIndex, totalScore);
+		
+		// Make sure the category that has been chosen by the player
+		// will not and cannot be updated later.
 		markAsUpdated(category, playerIndex);
 
 	}
