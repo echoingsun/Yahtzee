@@ -7,6 +7,7 @@
  * I added the following functions:
  */
 
+import acm.graphics.GCanvas;
 import acm.io.*;
 import acm.program.*;
 import acm.util.*;
@@ -17,6 +18,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		new Extension_Yahtzee_RS().start(args);
 	}
 
+	public void init(){
+		add(welcome);
+	}
 	public void run() {
 		IODialog dialog = getDialog();
 		nPlayers = dialog.readInt("Enter number of players");
@@ -479,6 +483,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[] playerNames;
 	private YahtzeeDisplay display;
 	private RandomGenerator rg = new RandomGenerator();
+	
+	private GCanvas welcome = new GCanvas();
 
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
