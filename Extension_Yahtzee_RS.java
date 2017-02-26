@@ -115,9 +115,11 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private void saveToFile(int bestPlayerIndex, int maxScore) {
 		String nameStr = playerNames[bestPlayerIndex];
 		String scoreStr = Integer.toString(maxScore);
-		try {
-			
+		try {			
 			File highScoresTxt = new File("highScores.txt");
+			if (highScoresTxt.exists()){
+				
+			}
 			FileWriter fw = new FileWriter(highScoresTxt);
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(nameStr + " " + scoreStr);
