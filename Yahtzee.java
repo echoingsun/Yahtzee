@@ -120,17 +120,17 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			// upper categories.
 			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
 			for (int upper = ONES - 1; upper < SIXES; upper++) {
-				upperScore = upperScore	+ scoreCard[upper][playerIndex];
+				upperScore = upperScore + scoreCard[upper][playerIndex];
 			}
 
 			// For convenience, define int upperScore to store the value.
 			// Apply bonus if applicable.
 			// Display upperScore and upperBonus.
-			
+
 			int bonusIfAny = scoreCard[UPPER_BONUS - 1][playerIndex];
 			if (upperScore >= UPPER_BONUS_LIMIT) {
-				bonusIfAny = UPPER_BONUS_AMT; 
-				display.updateScorecard(UPPER_BONUS, playerIndex + 1, bonusIfAny); 
+				bonusIfAny = UPPER_BONUS_AMT;
+				display.updateScorecard(UPPER_BONUS, playerIndex + 1, bonusIfAny);
 			} else {
 				bonusIfAny = 0;
 			}
@@ -139,8 +139,8 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			// get and display lower scores.
 			int lowerScore = scoreCard[LOWER_SCORE - 1][playerIndex];
 			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower++) {
-				lowerScore = lowerScore	+ scoreCard[lower][playerIndex];
-			}			
+				lowerScore = lowerScore + scoreCard[lower][playerIndex];
+			}
 			display.updateScorecard(LOWER_SCORE, playerIndex + 1, lowerScore);
 
 			// update and show total score.
@@ -151,6 +151,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 
 	}
 
+	/*
+	 * Method playOneRound defines the events that happen in one single cycle of
+	 * rolling dice, re-rolling, categorizing and scoring. Since the caller of
+	 * this method has player index starting at 1 while the array playerNames
+	 * starts at 0, minus 1 when dealing with the array.
+	 */
 	private void playOneRound(int playerIndex) {
 
 		display.printMessage(playerNames[playerIndex - 1] + "'s turn! Click \"Roll Dice\" button to roll the dice.");
@@ -189,13 +195,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		// according to the category they picked.
 		int category = selectCategory(playerIndex);
 		int score = calculateScore(category);
-		
+
 		// For each category they finally pick, update their score card.
 		// This is different from simply displaying the score.
 		// It stores all the scores into the 2D scoreCard array.
 		// Here category and playerIndex starts at 1,
 		// So minus 1 when playing with the array thing.
-		scoreCard[category - 1][playerIndex - 1] = score; 
+		scoreCard[category - 1][playerIndex - 1] = score;
 
 		// For every score recorded, update the player's total score.
 		int totalScore = updateTotal(score, playerIndex);
@@ -203,23 +209,29 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		// display score;
 		display.updateScorecard(category, playerIndex, score);
 		display.updateScorecard(TOTAL, playerIndex, totalScore);
-		
+
 		// Make sure the category that has been chosen by the player
 		// will not and cannot be updated later.
 		markAsUpdated(category, playerIndex);
 
 	}
 
+	/*
+	 * Method calculateScore passes in the category the player picks and decides
+	 * if the pattern of the dice fits in that category. If yes it will return a
+	 * legit score according to the rules if not it will just return 0.
+	 */
 	private int calculateScore(int category) {
 
-		// The sum of all the values of the dice will be used
-		// by some categories if player chooses them. Therefore:
+		// **************Dice Value Calculations*********************
+		// Some categories will require summing up the dice values.
+		// For convenience it is calculated here.
 		int sum = 0;
 		for (int i = 0; i < diceValue.length; i++) {
 			sum = sum + diceValue[i];
 		}
 
-		// For the rest categories, it might be helpful to calculate the
+		// For many categories, it might be helpful to calculate the
 		// frequency of the numbers on the dice
 		// by creating a new array that records the frequencies.
 		// For example, [1,0,1,1,1,1] means that
@@ -227,11 +239,13 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		// other five numbers appeared once each.
 		int[] freq = new int[6];
 
+		// Loop through the array diceValue that
+		// stores the value for dice 1-5 (in array, 0 - 4).
 		for (int i = 0; i < diceValue.length; i++) {
 			switch (diceValue[i]) {
 			case 1:
 				freq[0]++;
-				break;
+				break; // If die value equals 1, the frequency of 1 ++.
 			case 2:
 				freq[1]++;
 				break;
@@ -253,10 +267,16 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}
 		}
 
+		// *****************Categorization Logic*********************
+		// This part takes the category the player picks
+		// in selectCategory method and checks if the dice pattern fits
+		// the category.
 		switch (category) {
+
+		// For upper categories, just check how many times the value appeared.
 		case ONES:
 			if (freq[0] != 0)
-				return freq[0] * 1;
+				return freq[0] * 1; // return the point * times appeared.
 			break;
 		case TWOS:
 			if (freq[1] != 0)
@@ -278,6 +298,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			if (freq[5] != 0)
 				return freq[5] * 6;
 			break;
+
+		// For 3 or 4 of a kind, they would require a certain value
+		// appear more than 3 or 4 times.
+		// Similar logic can be applied to full house and Yahtzee.
+		// Full house requires there be only 1 shown-twice and
+		// 1 shown-three-times.
 		case THREE_OF_A_KIND:
 			for (int i = 0; i < freq.length; i++) {
 				if (freq[i] >= 3)
@@ -310,6 +336,11 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			break;
 		case CHANCE:
 			return sum;
+
+		// For straights, we need to consider the frequency pattern.
+		// For large straight, it will either be 12345 or 23456.
+		// Therefore, it requires 5 frequency counts to be 1 and
+		// the frequency of either 1 or 6 be 0.
 		case LARGE_STRAIGHT:
 			int oneCount = 0;
 			for (int i = 0; i < freq.length; i++) {
@@ -319,6 +350,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			if (oneCount == 5 && (freq[0] == 0 || freq[5] == 0))
 				return PTS_LG_STRT;
 			break;
+
+		// Small straight requires two-step thinking.
+		// First, there can be 3 types of small straights:
+		// (1) large straight
+		// (2) something like 12346, 13456
+		// (3) something like 12234, 33456, 34556, etc.
 		case SMALL_STRAIGHT:
 			oneCount = 0;
 			twoCount = 0;
@@ -329,7 +366,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 					twoCount++;
 			}
 
-			boolean allAppearedOnce = oneCount == 5 && (freq[0] == 0 || freq[5] == 0 || freq[1] == 0 || freq[4] == 0);
+			boolean allAppearedOnce = oneCount == 5 && (freq[2] != 0 && freq[3] !=0);
 			boolean someAppearedTwice = twoCount == 1 && oneCount == 3 && ((freq[4] == 0 && freq[5] == 0)
 					|| (freq[0] == 0 && freq[5] == 0) || (freq[0] == 0 && freq[1] == 0));
 			boolean isSmallStraight = allAppearedOnce || someAppearedTwice;
