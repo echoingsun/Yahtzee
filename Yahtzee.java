@@ -408,11 +408,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				|| (category >= 9 && category <= 15 && isScoreUpdated[category - 3][playerIndex - 1] == true);
 		while (updated) {
 			display.printMessage("This category has already been used. Please choose a different category.");
-			category = display.waitForPlayerToSelectCategory();
+			category = display.waitForPlayerToSelectCategory(); // Ask player to re-pick.
+			// Update the condition.
 			updated = (category <= 6 && isScoreUpdated[category - 1][playerIndex - 1] == true)
 					|| (category >= 9 && category <= 15 && isScoreUpdated[category - 3][playerIndex - 1] == true);
 		}
-		return category;
+		return category; // Finally return a valid category.
 
 	}
 
