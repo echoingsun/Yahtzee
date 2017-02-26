@@ -84,9 +84,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		int[] allTotalScores = new int[nPlayers];
 		for (int i = 0; i < allTotalScores.length; i++) {
 			allTotalScores[i] = scoreCard[TOTAL - 1][i];
+			hallOfFame = toHallOfFame(i, scoreCard[TOTAL - 1][i]);
 		}
-		
-
 
 		// Compare the total scores and get the highest.
 		// Let the best player and his score be the first player's,
@@ -111,7 +110,18 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		return bestPlayerAndScore;
 	}
 
-
+	private String[][] toHallOfFame(int playerIndex, int theirScores) {
+		for (int i = 0; i < fameScore.length; i++){
+			if (theirScores >= fameScore[i]){
+				for (int k = i; k < fameScore.length; k++){
+					
+				}
+					
+				fameScore[i] = theirScores;
+			}
+		}
+		return null;
+	}
 
 	/*
 	 * http://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it-in-java
