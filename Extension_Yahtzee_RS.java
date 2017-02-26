@@ -1,6 +1,5 @@
 
 /*
- * Pair assignment by Rachel Sun & Yingdan Lu
  * File: Yahtzee.java
  * ------------------
  * This program will eventually play the Yahtzee game.
