@@ -356,6 +356,14 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		// (1) large straight
 		// (2) something like 12346, 13456
 		// (3) something like 12234, 33456, 34556, etc.
+		// Second, for (1) and (2), as long as the frequency distribution
+		// is not 110111 or 111011 (12456/12356), they should count.
+		// For (3), instead of coming up with all the combinations,
+		// it's easier to think about the position of 0s in the frequency map.
+		// Since small straights will always have at least 4 consecutive values
+		// in a row, possible frequency distribution would be something like:
+		// 111200, 012110, 001121, etc. The positions of 0s cannot be other than
+		// what these 3 situations indicate.
 		case SMALL_STRAIGHT:
 			oneCount = 0;
 			twoCount = 0;
@@ -377,6 +385,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		default:
 			return 0;
 		}
+		
+		// Even if the dice patterns look nice, as long as
+		// it does not match the category the player picks, return 0 as the score.
 		return 0;
 	}
 
