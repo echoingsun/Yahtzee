@@ -100,16 +100,27 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		bestPlayerAndScore[1] = maxScore;
 		return bestPlayerAndScore;
 	}
-
+	
+	/*
+	 * Method getAllScores sums up the upper, lower and total scores of all players,
+	 * and display them on the screen.
+	 */
 	private void getAllScores() {
 
+		// Loop through each player and calculate upper, lower and totals respectively.
 		for (int playerIndex = 0; playerIndex < nPlayers; playerIndex++) {
 
-			// get and display upper scores and bonus if applicable,.
+			// For each one player, get and display upper scores and bonus if applicable.
+			// The upper categories are from 1-6, but in the scoreCard they range from 0 - 5.
+			// Category 7 (in scorecard, index 6) adds up the scores in the upper categories.
 			for (int upper = ONES - 1; upper < SIXES; upper++) {
 				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex]
 						+ scoreCard[upper][playerIndex];
 			}
+			
+			// For convenience, define int upperScore to store the value.
+			// Apply bonus if applicable.
+			// Display upperScore and upperBonus.
 			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
 			if (upperScore >= UPPER_BONUS_LIMIT) {
 				display.updateScorecard(UPPER_BONUS, playerIndex + 1, UPPER_BONUS_AMT);
