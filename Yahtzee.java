@@ -1,6 +1,7 @@
 
 /*
  * File: Yahtzee.java
+ * Name: Rachel Sun, Yingdan Lu
  * ------------------
  * This program will eventually play the Yahtzee game.
  */
