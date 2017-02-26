@@ -429,6 +429,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return totalScore;
 	}
 
+	/*
+	 * Method markAsUpdated takes in the category the player chooses
+	 * and marks "true" in the isScoreUpdated boolean array.
+	 * It means that play already put a score in there and it 
+	 * cannot be used further.
+	 */
 	private void markAsUpdated(int category, int playerIndex) {
 		if (category <= 6) {
 			isScoreUpdated[category - 1][playerIndex - 1] = true;
