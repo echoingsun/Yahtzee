@@ -143,7 +143,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			}			
 			display.updateScorecard(LOWER_SCORE, playerIndex + 1, lowerScore);
 
-			// update total score.
+			// update and show total score.
 			int totalScore = upperScore + bonusIfAny + lowerScore;
 			scoreCard[TOTAL - 1][playerIndex] = totalScore;
 			display.updateScorecard(TOTAL, playerIndex + 1, totalScore);
@@ -174,7 +174,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		for (int i = 0; i < TURN_PER_PLAYER - 1; i++) {
 			display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
 			display.waitForPlayerToSelectDice();
-			for (int k = 0; k < N_DICE - 1; k++) {
+			for (int k = 0; k < N_DICE; k++) {
 				if (display.isDieSelected(k)) {
 					randomValue(k);
 				}
