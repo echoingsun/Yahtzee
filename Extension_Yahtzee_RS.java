@@ -7,6 +7,11 @@
  * I added the following functions:
  */
 
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+
 import acm.graphics.GCanvas;
 import acm.io.*;
 import acm.program.*;
@@ -17,11 +22,11 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	public static void main(String[] args) {
 		new Extension_Yahtzee_RS().start(args);
 	}
-
-	public void init(){
-		add(welcome);
+	
+	public void actionPerformed(ActionEvent e){
+		runTheGame();
 	}
-	public void run() {
+	private void runTheGame() {
 		IODialog dialog = getDialog();
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
@@ -30,6 +35,15 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
 		playGame();
+		
+	}
+
+	public void run() {
+		add(welcome);
+		add (startGame, CENTER);
+		addActionListeners();
+		
+		
 	}
 
 	private void playGame() {
@@ -485,6 +499,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private RandomGenerator rg = new RandomGenerator();
 	
 	private GCanvas welcome = new GCanvas();
+	private JButton startGame = new JButton ("Start Game");
 
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
