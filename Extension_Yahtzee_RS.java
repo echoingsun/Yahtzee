@@ -3,7 +3,8 @@
  * File: Extension_Yahtzee_RS.java
  * Name: Rachel Sun
  * ------------------
- * This program will eventually play the Yahtzee game.
+ * This is the extended version of Yahtzee game.
+ * I added the following functions:
  */
 
 import acm.io.*;
