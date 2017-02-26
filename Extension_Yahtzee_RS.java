@@ -98,9 +98,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 				bestPlayerIndex = i;
 			}
 		}
-		
+
 		saveToFile(bestPlayerIndex, maxScore);
-		
+
 		// Create the array this method is going to return.
 		// Put in the best player index and his score.
 		int[] bestPlayerAndScore = new int[2];
@@ -109,16 +109,20 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		return bestPlayerAndScore;
 	}
 
+	/*
+	 * http://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it-in-java
+	 */
 	private void saveToFile(int bestPlayerIndex, int maxScore) {
 		String nameStr = playerNames[bestPlayerIndex];
-		String scoreStr = Integer.toString(maxScore);		
+		String scoreStr = Integer.toString(maxScore);
 		try {
-			File highScoresTxt = new File ("highScores.txt");
+			File highScoresTxt = new File("highScores.txt");
 			FileWriter fw = new FileWriter(highScoresTxt.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(nameStr + " " + scoreStr);
-            bw.close();
-		} catch (Exception e){}
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(nameStr + " " + scoreStr);
+			bw.close();
+		} catch (Exception e) {
+		}
 	}
 
 	/*
@@ -148,11 +152,11 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			// Display upperScore and upperBonus.
 			int bonusIfAny = 0;
 			if (upperScore >= UPPER_BONUS_LIMIT) {
-				bonusIfAny = UPPER_BONUS_AMT;				
+				bonusIfAny = UPPER_BONUS_AMT;
 			} else {
 				bonusIfAny = 0;
 			}
-			
+
 			display.updateScorecard(UPPER_BONUS, playerIndex + 1, bonusIfAny);
 			display.updateScorecard(UPPER_SCORE, playerIndex + 1, upperScore);
 
@@ -395,7 +399,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 					twoCount++;
 			}
 
-			boolean allAppearedOnce = oneCount == 5 && (freq[2] != 0 && freq[3] !=0);
+			boolean allAppearedOnce = oneCount == 5 && (freq[2] != 0 && freq[3] != 0);
 			boolean someAppearedTwice = twoCount == 1 && oneCount == 3 && ((freq[4] == 0 && freq[5] == 0)
 					|| (freq[0] == 0 && freq[5] == 0) || (freq[0] == 0 && freq[1] == 0));
 			boolean isSmallStraight = allAppearedOnce || someAppearedTwice;
@@ -406,21 +410,22 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		default:
 			return 0;
 		}
-		
+
 		// Even if the dice patterns look nice, as long as
-		// it does not match the category the player picks, return 0 as the score.
+		// it does not match the category the player picks, return 0 as the
+		// score.
 		return 0;
 	}
 
 	/*
-	 * Method selectCategory mainly checks whether the category
-	 * for that player is available. If yes, it returns the value of the 
-	 * category, and points will be calculated accordingly.
-	 * If no, player is asked to pick an available one until he does so.
+	 * Method selectCategory mainly checks whether the category for that player
+	 * is available. If yes, it returns the value of the category, and points
+	 * will be calculated accordingly. If no, player is asked to pick an
+	 * available one until he does so.
 	 */
 	private int selectCategory(int playerIndex) {
 		int category = display.waitForPlayerToSelectCategory();
-		
+
 		// Since category index and scoring category index does not match
 		// perfectly, we have to look into them respectively.
 		// isScoreUpdated is a boolean array that only covers the scoring part
@@ -429,7 +434,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 				|| (category >= 9 && category <= 15 && isScoreUpdated[category - 3][playerIndex - 1] == true);
 		while (updated) {
 			display.printMessage("This category has already been used. Please choose a different category.");
-			category = display.waitForPlayerToSelectCategory(); // Ask player to re-pick.
+			category = display.waitForPlayerToSelectCategory(); // Ask player to
+																// re-pick.
 			// Update the condition.
 			updated = (category <= 6 && isScoreUpdated[category - 1][playerIndex - 1] == true)
 					|| (category >= 9 && category <= 15 && isScoreUpdated[category - 3][playerIndex - 1] == true);
@@ -439,22 +445,21 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	/*
-	 * Method updateTotal takes in a score and the player index,
-	 * and update the the total score in the scoreCard array.
-	 * This is to be displayed on the screen later.
+	 * Method updateTotal takes in a score and the player index, and update the
+	 * the total score in the scoreCard array. This is to be displayed on the
+	 * screen later.
 	 */
-	private int updateTotal(int score, int playerIndex) {		
+	private int updateTotal(int score, int playerIndex) {
 		scoreCard[TOTAL - 1][playerIndex - 1] = scoreCard[TOTAL - 1][playerIndex - 1] + score;
 		int totalScore = scoreCard[TOTAL - 1][playerIndex - 1];
-		
+
 		return totalScore;
 	}
 
 	/*
-	 * Method markAsUpdated takes in the category the player chooses
-	 * and marks "true" in the isScoreUpdated boolean array.
-	 * It means that play already put a score in there and it 
-	 * cannot be 
+	 * Method markAsUpdated takes in the category the player chooses and marks
+	 * "true" in the isScoreUpdated boolean array. It means that play already
+	 * put a score in there and it cannot be
 	 */
 	private void markAsUpdated(int category, int playerIndex) {
 		if (category <= 6) {
@@ -496,7 +501,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[] playerNames;
 	private YahtzeeDisplay display;
 	private RandomGenerator rg = new RandomGenerator();
-
 
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
