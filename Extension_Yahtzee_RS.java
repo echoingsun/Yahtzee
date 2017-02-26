@@ -5,6 +5,11 @@
  * This program will eventually play the Yahtzee game.
  */
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
+
 import acm.io.*;
 import acm.program.*;
 import acm.util.*;
@@ -93,13 +98,28 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 				bestPlayerIndex = i;
 			}
 		}
-
+		
+		saveToFile(bestPlayerIndex, maxScore);
+		
 		// Create the array this method is going to return.
 		// Put in the best player index and his score.
 		int[] bestPlayerAndScore = new int[2];
 		bestPlayerAndScore[0] = bestPlayerIndex;
 		bestPlayerAndScore[1] = maxScore;
 		return bestPlayerAndScore;
+	}
+
+	private void saveToFile(int bestPlayerIndex, int maxScore) {
+		String nameStr = playerNames[bestPlayerIndex];
+		String scoreStr = Integer.toString(maxScore);
+		
+		try {
+			File highScoresTxt = new File ("highScores.txt");
+			FileWriter fw = new FileWriter(highScoresTxt.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(nameStr + " " + scoreStr);
+            bw.close();
+		} catch (Exception e){}
 	}
 
 	/*
@@ -477,6 +497,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[] playerNames;
 	private YahtzeeDisplay display;
 	private RandomGenerator rg = new RandomGenerator();
+
 
 	// Define the dice array that holds the random dice value for each die in
 	// the array.
