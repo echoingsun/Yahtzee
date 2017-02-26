@@ -117,8 +117,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		String scoreStr = Integer.toString(maxScore);
 		try {			
 			File highScoresTxt = new File("highScores.txt");
-			if (highScoresTxt.exists()){
-				
+			if (!highScoresTxt.exists()){
+				highScoresTxt.createNewFile();
 			}
 			FileWriter fw = new FileWriter(highScoresTxt);
 			BufferedWriter bw = new BufferedWriter(fw);
