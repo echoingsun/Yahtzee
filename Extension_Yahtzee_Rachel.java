@@ -1,7 +1,7 @@
 
 /*
- * Pair assignment by Rachel Sun & Yingdan Lu
- * File: Yahtzee.java
+ * File: Extension_Yahtzee_RS.java
+ * Name: Rachel Sun
  * ------------------
  * This program will eventually play the Yahtzee game.
  */
