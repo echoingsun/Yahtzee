@@ -85,6 +85,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		for (int i = 0; i < allTotalScores.length; i++) {
 			allTotalScores[i] = scoreCard[TOTAL - 1][i];
 		}
+		
+
 
 		// Compare the total scores and get the highest.
 		// Let the best player and his score be the first player's,
@@ -108,6 +110,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		bestPlayerAndScore[1] = maxScore;
 		return bestPlayerAndScore;
 	}
+
+
 
 	/*
 	 * http://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it-in-java
@@ -517,6 +521,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	// scoreCard is already updated.
 	private boolean[][] isScoreUpdated;
 
-	// Create a 2D array to store all the history high scores.
+	// Create 2D arrays to store the names and scores in the hall of fame.
+	private String [] fameName = new String [10];
+	private int [] fameScore = new int [10];
 	private String [][] hallOfFame = new String [11][3];
 }
