@@ -67,14 +67,23 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	}
 
 	/*
-	 * Method getBest 
+	 * Method getBest takes nPlayers as input and returns an integer array
+	 * that has two elements: the index of the player that has the best score
+	 * and that best score.
 	 */
 	private int[] getBest(int nPlayers) {
-		int[] allTotalScores = new int[nPlayers];
+		
+		// Make the total score row into a new array that has nPlayers number of elements.
+		// Pass the total score from the scorecard to the new array.
+		int[] allTotalScores = new int[nPlayers]; 
 		for (int i = 0; i < allTotalScores.length; i++) {
-			allTotalScores[i] = scoreCard[TOTAL - 1][i];
+			allTotalScores[i] = scoreCard[TOTAL - 1][i]; 
 		}
 
+		// Compare the total scores and get the highest.
+		// Let the best player and his score be the first player's,
+		// loop through the new array, compare all values and get the highest.
+		// Update the best player index and the highest score.
 		int bestPlayerIndex = 0;
 		int maxScore = allTotalScores[0];
 		for (int i = 0; i < allTotalScores.length; i++) {
@@ -83,6 +92,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 				bestPlayerIndex = i;
 			}
 		}
+		
+		// Create the array this method is going to return.
+		// Put in the best player index and his score.
 		int[] bestPlayerAndScore = new int[2];
 		bestPlayerAndScore[0] = bestPlayerIndex;
 		bestPlayerAndScore[1] = maxScore;
