@@ -10,10 +10,10 @@ import acm.io.*;
 import acm.program.*;
 import acm.util.*;
 
-public class Extension_Yahtzee_Rachel extends GraphicsProgram implements YahtzeeConstants {
+public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeConstants {
 
 	public static void main(String[] args) {
-		new Extension_Yahtzee_Rachel().start(args);
+		new Extension_Yahtzee_RS().start(args);
 	}
 
 	public void run() {
