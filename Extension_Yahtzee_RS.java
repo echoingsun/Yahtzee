@@ -116,6 +116,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		String nameStr = playerNames[bestPlayerIndex];
 		String scoreStr = Integer.toString(maxScore);
 		try {
+			
 			File highScoresTxt = new File("highScores.txt");
 			FileWriter fw = new FileWriter(highScoresTxt);
 			BufferedWriter bw = new BufferedWriter(fw);
@@ -514,4 +515,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	// scoreCard is already updated.
 	private boolean[][] isScoreUpdated;
 
+	// Create a 2D array to store all the history high scores.
+	private String [][] hallOfFame = new String [11][3];
 }
