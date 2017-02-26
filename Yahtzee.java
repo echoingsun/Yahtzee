@@ -399,7 +399,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 */
 	private int selectCategory(int playerIndex) {
 		int category = display.waitForPlayerToSelectCategory();
-		boolean updated = (category <= 6 && isScoreUpdated[category - 1][playerIndex - 1] == true)
+		
+		// Since category index and scoring category index does not match
+		// perfectly, we have to look into them respectively.
+		// isScoreUpdated is a boolean array that only covers the scoring part
+		// of the scorecard. Deal with the difference in numbering.
+		boolean updated = (category <= SIXES && isScoreUpdated[category - 1][playerIndex - 1] == true)
 				|| (category >= 9 && category <= 15 && isScoreUpdated[category - 3][playerIndex - 1] == true);
 		while (updated) {
 			display.printMessage("This category has already been used. Please choose a different category.");
