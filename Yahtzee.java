@@ -118,29 +118,31 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			// range from 0 - 5.
 			// Category 7 (in scorecard, index 6) adds up the scores in the
 			// upper categories.
-			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
 			for (int upper = ONES - 1; upper < SIXES; upper++) {
-				upperScore = upperScore + scoreCard[upper][playerIndex];
+				scoreCard[UPPER_SCORE - 1][playerIndex] = scoreCard[UPPER_SCORE - 1][playerIndex]
+						+ scoreCard[upper][playerIndex];
 			}
+			int upperScore = scoreCard[UPPER_SCORE - 1][playerIndex];
 
 			// For convenience, define int upperScore to store the value.
 			// Apply bonus if applicable.
 			// Display upperScore and upperBonus.
-
-			int bonusIfAny = scoreCard[UPPER_BONUS - 1][playerIndex];
+			int bonusIfAny = 0;
 			if (upperScore >= UPPER_BONUS_LIMIT) {
 				bonusIfAny = UPPER_BONUS_AMT;
 				display.updateScorecard(UPPER_BONUS, playerIndex + 1, bonusIfAny);
 			} else {
 				bonusIfAny = 0;
 			}
+			scoreCard[UPPER_BONUS - 1][playerIndex] = bonusIfAny;
 			display.updateScorecard(UPPER_SCORE, playerIndex + 1, upperScore);
 
 			// get and display lower scores.
-			int lowerScore = scoreCard[LOWER_SCORE - 1][playerIndex];
 			for (int lower = THREE_OF_A_KIND - 1; lower < CHANCE; lower++) {
-				lowerScore = lowerScore + scoreCard[lower][playerIndex];
+				scoreCard[LOWER_SCORE - 1][playerIndex] = scoreCard[LOWER_SCORE - 1][playerIndex]
+						+ scoreCard[lower][playerIndex];
 			}
+			int lowerScore = scoreCard[LOWER_SCORE - 1][playerIndex];
 			display.updateScorecard(LOWER_SCORE, playerIndex + 1, lowerScore);
 
 			// update and show total score.
