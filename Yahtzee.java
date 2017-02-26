@@ -129,12 +129,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 			// Display upperScore and upperBonus.
 			int bonusIfAny = 0;
 			if (upperScore >= UPPER_BONUS_LIMIT) {
-				bonusIfAny = UPPER_BONUS_AMT;
-				display.updateScorecard(UPPER_BONUS, playerIndex + 1, bonusIfAny);
+				bonusIfAny = UPPER_BONUS_AMT;				
 			} else {
 				bonusIfAny = 0;
 			}
-			scoreCard[UPPER_BONUS - 1][playerIndex] = bonusIfAny;
+			
+			display.updateScorecard(UPPER_BONUS, playerIndex + 1, bonusIfAny);
 			display.updateScorecard(UPPER_SCORE, playerIndex + 1, upperScore);
 
 			// get and display lower scores.
