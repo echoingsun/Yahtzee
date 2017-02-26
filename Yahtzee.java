@@ -422,9 +422,9 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * and update the the total score in the scoreCard array.
 	 * This is to be displayed on the screen later.
 	 */
-	private int updateTotal(int score, int playerIndex) {
+	private int updateTotal(int score, int playerIndex) {		
+		scoreCard[TOTAL - 1][playerIndex - 1] = scoreCard[TOTAL - 1][playerIndex - 1] + score;
 		int totalScore = scoreCard[TOTAL - 1][playerIndex - 1];
-		totalScore = totalScore + score;
 		
 		return totalScore;
 	}
@@ -433,7 +433,7 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 	 * Method markAsUpdated takes in the category the player chooses
 	 * and marks "true" in the isScoreUpdated boolean array.
 	 * It means that play already put a score in there and it 
-	 * cannot be used further.
+	 * cannot be 
 	 */
 	private void markAsUpdated(int category, int playerIndex) {
 		if (category <= 6) {
