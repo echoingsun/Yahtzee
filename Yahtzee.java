@@ -391,6 +391,12 @@ public class Yahtzee extends GraphicsProgram implements YahtzeeConstants {
 		return 0;
 	}
 
+	/*
+	 * Method selectCategory mainly checks whether the category
+	 * for that player is available. If yes, it returns the value of the 
+	 * category, and points will be calculated accordingly.
+	 * If no, player is asked to pick an available one until he does so.
+	 */
 	private int selectCategory(int playerIndex) {
 		int category = display.waitForPlayerToSelectCategory();
 		boolean updated = (category <= 6 && isScoreUpdated[category - 1][playerIndex - 1] == true)
