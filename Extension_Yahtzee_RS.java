@@ -103,7 +103,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		
 		add (rank, title.getX() - title.getWidth()*0.5, title.getY() + title.getHeight() * 1.5);
 		add(name, title.getX() + title.getWidth() * 0.5 - name.getWidth() * 0.5, rank.getY());
-		add(score, title.getX() + title.getWidth() * 1.2, rank.getY());
+		add(score, title.getX() + title.getWidth() * 1.15, rank.getY());
 	
 		
 	}
