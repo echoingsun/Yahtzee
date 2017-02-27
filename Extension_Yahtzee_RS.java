@@ -36,6 +36,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private void playGame() {
 
 		readHighScores();
+		
 		// Array scoreCard keeps track of the players' scores.
 		// It's N_CATEGORES (17) * number of players.
 		// When modifying the values in scoreCard, minus 1 from the parameters.
