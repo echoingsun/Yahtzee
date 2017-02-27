@@ -1,8 +1,11 @@
 
 /*
- * File: Yahtzee.java
+ * File: Extension_Yahtzee_RS.java
+ * Name: Rachel Sun
  * ------------------
- * This program will eventually play the Yahtzee game.
+ * I added the following function to the Yahtzee program:
+ * (1a) Create a highScore txt file to store the high scores if not already;
+ * (1b) Update the txt file with new high scores from every game.
  */
 
 import java.io.BufferedReader;
