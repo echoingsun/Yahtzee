@@ -113,12 +113,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[][] toHallOfFame(int playerIndex, int theirScores) {
 		for (int i = 0; i < fameScore.length; i++){
 			if (theirScores >= fameScore[i]){
-				for (int k = i; k < fameScore.length - 1; k++){
-					int tempScore = fameScore[k+1];
-					fameScore[k+1] = fameScore[k];
-					
-					String tempName = fameName[k+1];
-					fameName[k+1] = tempName[k];
+				int[] tempScoreArray  = new int[fameScore.length - i];
+				for (int k = 0; k < tempScoreArray.length; k++){
+					tempScoreArray
 				}					
 				fameScore[i] = theirScores;
 				fameName[i] = playerNames[playerIndex];
