@@ -8,7 +8,7 @@
 public interface YahtzeeConstants {
 
 /** The width of the application window */
-	public static final int APPLICATION_WIDTH = 600;
+	public static final int APPLICATION_WIDTH = 800;
 
 /** The height of the application window */
 	public static final int APPLICATION_HEIGHT = 350;
