@@ -111,11 +111,16 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	private String[][] toHallOfFame(int playerIndex, int theirScores) {
+		
+		// Use a tempScore array to cut through the history score records
+		// at where the new high score comes in.
+		int[] tempScoreArray = new int[0];
+		
 		for (int i = 0; i < fameScore.length; i++){
 			if (theirScores >= fameScore[i]){
-				int[] tempScoreArray  = new int[fameScore.length - i];
+				tempScoreArray  = new int[fameScore.length - i - 1];
 				for (int k = 0; k < tempScoreArray.length; k++){
-					tempScoreArray
+					tempScoreArray[k] = fameScore[k+i];
 				}					
 				fameScore[i] = theirScores;
 				fameName[i] = playerNames[playerIndex];
@@ -124,6 +129,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		}
 		
 		for (int i = 0; i < hallOfFame.length; i++){
+	
 			hallOfFame[i][0] = fameName[i];
 			hallOfFame[i][1] = Integer.toString(fameScore[i]);
 		}
