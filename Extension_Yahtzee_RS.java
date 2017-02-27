@@ -240,7 +240,10 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 		// Make the total score row into a new array that has nPlayers number of
 		// elements.
-		// Pass the total score from the scorecard to the new array.
+		// When doing this, check the total score of each player,
+		// comparing them with all the previous history high scores
+		// and see if they can beat them.
+		// This is achieved through method toHallOfFame.
 		int[] allTotalScores = new int[nPlayers];
 		for (int i = 0; i < allTotalScores.length; i++) {
 			allTotalScores[i] = scoreCard[TOTAL - 1][i];
@@ -248,7 +251,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		}
 		
 		// Since all players have finished the game,
-		// save all their scores to the txt file.
+		// And all high scores compared,
+		// save all the high scores to the txt file.
 		saveToFile();
 
 		// Compare the total scores and get the highest.
