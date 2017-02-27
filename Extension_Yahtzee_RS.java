@@ -92,7 +92,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private void showHighScores() {
 		GLabel historyHighScores = new GLabel ("HISTORY HIGH SCORES");
 		historyHighScores.setColor(Color.YELLOW);
-		add (historyHighScores, getWidth() * 0.7, getHeight() *0.3);
+		add (historyHighScores, getWidth() * 0.8, getHeight() *0.2);
 		
 	}
 
