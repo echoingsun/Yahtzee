@@ -31,9 +31,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		readHighScores();
 		
 		IODialog dialog = getDialog();
-		
-		dialog.print("Hey");
-		pause(1000);
+
 		
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
