@@ -251,7 +251,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		// call this method first, wait for player for their choices,
 		// and finally display the chosen dice.
 		// This process repeats twice.
-		for (int i = 0; i < TURN_PER_PLAYER - 1; i++) {
+		
+/*		for (int i = 0; i < TURN_PER_PLAYER - 1; i++) {
 			display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
 			display.waitForPlayerToSelectDice();
 			for (int k = 0; k < N_DICE; k++) {
@@ -260,7 +261,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 				}
 			}
 			display.displayDice(diceValue);
-		}
+		}*/
 
 		display.printMessage("Select a category for this roll.");
 
