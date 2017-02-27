@@ -110,8 +110,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			GLabel numLabel = new GLabel (num);
 			numLabel.setColor(Color.YELLOW);
 			add (numLabel, rank.getX() + rank.getWidth() * 0.5 - numLabel.getWidth() * 0.5, rank.getY() + rank.getHeight() * 1.4 * (i+1));
-			
 		}
+		
+		
 	
 		
 	}
