@@ -101,10 +101,19 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		isScoreUpdated = new boolean[N_SCORING_CATEGORIES][nPlayers];
 	}
 
+	/*
+	 * Method showHighScores grabs data from the result of readHighScores,
+	 * and display them as labels on canvas.
+	 * An instance variable scoreBoard holds all these labels as elements of 
+	 * a GCompound.
+	 */
 	private void showHighScores() {
 				
+		// Define labels for the scoreBoard.
 		GLabel title = new GLabel ("HISTORY HIGH SCORES");
 		title.setColor(Color.YELLOW);
+		
+		// Add label to scoreBoard.
 		scoreBoard.add (title, getWidth() * 0.738, getHeight() *0.1);
 
 		GLabel rank = new GLabel ("RANK");
@@ -112,19 +121,21 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		GLabel name = new GLabel ("NAME");
 		name.setColor(Color.YELLOW);
 		GLabel score = new GLabel ("SCORE");
-		score.setColor(Color.YELLOW);
-
-		
+		score.setColor(Color.YELLOW);		
 		scoreBoard.add (rank, title.getX() - title.getWidth()*0.5, title.getY() + title.getHeight() * 1.5);
 		scoreBoard.add(name, title.getX() + title.getWidth() * 0.5 - name.getWidth() * 0.5, rank.getY());
 		scoreBoard.add(score, title.getX() + title.getWidth() * 1.15, rank.getY());
 		
+		// Since method readHighScores gets the data from the txt file
+		// and puts them into arrays fameName and fameScore,
+		// here it extracts data from the two arrays and turn them into
+		// GLabels to show on the screen.
+		// These labels are also a part of the GCompound scoreBoard.
 		for (int i = 0; i < hallOfFame.length; i++){
 			String num = Integer.toString(i+1);
 			GLabel numLabel = new GLabel (num);
 			numLabel.setColor(Color.YELLOW);
 			scoreBoard.add (numLabel, rank.getX() + rank.getWidth() * 0.5 - numLabel.getWidth() * 0.5, rank.getY() + rank.getHeight() * 1.4 * (i+1));
-
 		}
 		
 		for (int i = 0; i < hallOfFame.length; i++){
@@ -132,7 +143,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			GLabel namesLabel = new GLabel (names);
 			namesLabel.setColor(Color.YELLOW);
 			scoreBoard.add (namesLabel, name.getX() + name.getWidth() * 0.5 - namesLabel.getWidth() * 0.5, name.getY() + name.getHeight() * 1.4 * (i+1));
-
 		}
 		
 		for (int i = 0; i < hallOfFame.length; i++){
@@ -141,18 +151,24 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			GLabel scoresLabel = new GLabel (scoresStr);
 			scoresLabel.setColor(Color.YELLOW);
 			scoreBoard.add (scoresLabel, score.getX() + score.getWidth() * 0.5 - scoresLabel.getWidth() * 0.5, score.getY() + score.getHeight() * 1.4 * (i+1));
-
 		}
 	
 		add(scoreBoard, 0,0);
 		
 	}
 
+	/*
+	 * Method readHighScores creates or opens a txt file
+	 * and reads its data into an arraylist,
+	 * and finally puts them into arrays fameName and fameScore.
+	 */
 	private void readHighScores() {
 
 		File highScoresTxt = new File("highScores.txt");
 		ArrayList<String> AL = new ArrayList<String>();
 
+		// If the file does not exist, try create it.
+		// If it does, read its contents through a buffered reader.
 		if (!highScoresTxt.exists()) {
 			try {
 				highScoresTxt.createNewFile();
@@ -174,20 +190,40 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 		
+		// Now that all the lines from the txt file are in the 
+		// array list (as long as the file exists and is not empty),
+		// split each line to store the values into arrays.
+		// Since the first line of the text will be titles,
+		// start extracting data from the second element of the arraylist.
 		for (int i = 0; i < hallOfFame.length; i++){
 			fameName[i] = importBestPlayers(AL, i+1);
 			fameScore[i] = importHighScores(AL, i+1);
 		}
 	}
 
+	/*
+	 * Method importBestPlayers takes in the arraylist
+	 * that stores all the read lines, and the index of the line.
+	 * It returns the name of the player in that line.
+	 */
 	private String importBestPlayers(ArrayList<String> AL, int ALIndex) {
+		
+		// If there is no previous file to read and the arraylist
+		// is therefore empty,
+		// return "---" to indicate that.
+		// It also prevents throwing index out of bound exception.
 		if (AL.size() ==0) return "---";
 		String [] parts = AL.get(ALIndex).split(",,");
-		String name = parts[1];
+		String name = parts[1]; // Names will be the second part of the string.
 		if (name.equals("null")) name = "---";
 		return name;
 	}
 	
+	/*
+	 * Method importBestScores takes in the arraylist
+	 * that stores all the read lines, and the index of the line.
+	 * It returns the score of the player in that line.
+	 */
 	private int importHighScores(ArrayList<String> AL, int ALIndex) {
 		if (AL.size() == 0) return 0;
 		String [] parts = AL.get(ALIndex).split(",,");
