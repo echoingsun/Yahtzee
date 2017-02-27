@@ -299,28 +299,28 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		// 2nd to 9th ranking scores. They will now rank 3rd to 10th
 		// in the updated fameScore array.
 		for (int i = 0; i < fameScore.length; i++) {
-			if (theirScores >= fameScore[i]) { 
-				
+			if (theirScores >= fameScore[i]) {
+
 				// If player got to rank the 2nd
-				tempScoreArray = new int[fameScore.length - i - 1]; 
-				
+				tempScoreArray = new int[fameScore.length - i - 1];
+
 				// The new array will have the length [10-2]
 				// to hold the previously 2-9 ranking scores.
 				tempNameArray = new String[fameScore.length - i - 1];
-				
+
 				for (int k = 0; k < tempScoreArray.length; k++) {
-					
-					// the 1st score of the new array would be 
+
+					// the 1st score of the new array would be
 					// the 3rd ranking score in the previous one.
-					tempScoreArray[k] = fameScore[k + i]; 
+					tempScoreArray[k] = fameScore[k + i];
 					tempNameArray[k] = fameName[k + i];
 				}
-				
+
 				// The new score took over the 2nd place.
 				fameScore[i] = theirScores;
 				fameName[i] = playerNames[playerIndex];
-				
-				// Only do compare once as fameScore already has the 
+
+				// Only do compare once as fameScore already has the
 				// scores from high to low.
 				break;
 			}
@@ -328,7 +328,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 		// Update fameScore and fameName arrays.
 		// The first part of the arrays would be the scores previously
-		// in the array as they are not beaten by players, and the 
+		// in the array as they are not beaten by players, and the
 		// score that earns a new rank on the list.
 		// The second part come from the tempScoreArray that records
 		// the scores whose rankings have changed.
@@ -449,14 +449,16 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		// call this method first, wait for player for their choices,
 		// and finally display the chosen dice.
 		// This process repeats twice.
-
-		/*
-		 * for (int i = 0; i < TURN_PER_PLAYER - 1; i++) { display.
-		 * printMessage("Select the dice you wish to re-roll and click \"Roll Again\""
-		 * ); display.waitForPlayerToSelectDice(); for (int k = 0; k < N_DICE;
-		 * k++) { if (display.isDieSelected(k)) { randomValue(k); } }
-		 * display.displayDice(diceValue); }
-		 */
+		for (int i = 0; i < TURN_PER_PLAYER - 1; i++) {
+			display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
+			display.waitForPlayerToSelectDice();
+			for (int k = 0; k < N_DICE; k++) {
+				if (display.isDieSelected(k)) {
+					randomValue(k);
+				}
+			}
+			display.displayDice(diceValue);
+		}
 
 		display.printMessage("Select a category for this roll.");
 
