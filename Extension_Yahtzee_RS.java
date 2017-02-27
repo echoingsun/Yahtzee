@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import acm.io.*;
 import acm.program.*;
@@ -36,7 +37,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private void playGame() {
 
 		readHighScores();
-		
+
 		// Array scoreCard keeps track of the players' scores.
 		// It's N_CATEGORES (17) * number of players.
 		// When modifying the values in scoreCard, minus 1 from the parameters.
@@ -78,6 +79,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private void readHighScores() {
 
 		File highScoresTxt = new File("highScores.txt");
+		ArrayList<String> AL = new ArrayList<String>();
+
 		if (!highScoresTxt.exists()) {
 			try {
 				highScoresTxt.createNewFile();
@@ -86,22 +89,29 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		} else {
 			try {
-				BufferedReader br = new BufferedReader (new FileReader("highScores.txt"));
-				String str = br.readLine();
-				while (true){
-					int i = 0;
-					str = br.readLine();
-					if (str == null) break;
-					String [] parts = str.split(",,");
-					fameName[i] = parts[1];
-					fameScore[i] = Integer.parseInt(parts[2]);
-					i++;					
+				BufferedReader br = new BufferedReader(new FileReader("highScores.txt"));
+				while (true) {
+					String str = br.readLine();
+					if (str == null)
+						break;
+					AL.add(str);
 				}
 				br.close();
-			}	catch (IOException e){
-			throw new RuntimeException(e);}
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
 		
+		for (int i = 0; i < hallOfFame.length; i++){
+			fameName[i] = importBestPlayers(AL, i+1);
+			fameScore[i] = importHighScores(AL, i+1);
+		}
+	}
+
+	private int importHighScores(ArrayList<String> AL, int ALIndex) {
+		String [] parts = AL.get(ALIndex).split(",,");
+		int score = Integer.parseInt(parts[3]);
+		return score;
 	}
 
 	/*
@@ -189,11 +199,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private void saveToFile() {
 
 		try {
-			File highScoresTxt = new File("highScores.txt");
-			if (!highScoresTxt.exists()) {
-				highScoresTxt.createNewFile();
-			}
-			FileWriter fw = new FileWriter(highScoresTxt);
+
+			FileWriter fw = new FileWriter("highScores.txt");
 			BufferedWriter bw = new BufferedWriter(fw);
 
 			bw.write("Rank" + ",," + "Name" + ",," + "Score");
