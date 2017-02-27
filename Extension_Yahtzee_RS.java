@@ -5,9 +5,12 @@
  * This program will eventually play the Yahtzee game.
  */
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 
 import acm.io.*;
 import acm.program.*;
@@ -32,6 +35,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 	private void playGame() {
 
+		readHighScores();
 		// Array scoreCard keeps track of the players' scores.
 		// It's N_CATEGORES (17) * number of players.
 		// When modifying the values in scoreCard, minus 1 from the parameters.
@@ -68,6 +72,24 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		display.printMessage(
 				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
 
+	}
+
+	private void readHighScores() {
+
+		File highScoresTxt = new File("highScores.txt");
+		if (!highScoresTxt.exists()) {
+			try {
+				highScoresTxt.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				BufferedReader bf = new BufferedReader (new FileReader("highScores.txt"));
+				
+			}
+		}
+		
 	}
 
 	/*
@@ -162,10 +184,10 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			FileWriter fw = new FileWriter(highScoresTxt);
 			BufferedWriter bw = new BufferedWriter(fw);
 
-			bw.write("Rank" + "," + "Name" + "," + "Score");
+			bw.write("Rank" + ",," + "Name" + ",," + "Score");
 			for (int i = 0; i < hallOfFame.length; i++) {
 				bw.newLine();
-				bw.write(Integer.toString(i + 1) + "," + fameName[i] + "," + Integer.toString(fameScore[i]));
+				bw.write(Integer.toString(i + 1) + ",," + fameName[i] + ",," + Integer.toString(fameScore[i]));
 			}
 			bw.close();
 		} catch (Exception e) {
