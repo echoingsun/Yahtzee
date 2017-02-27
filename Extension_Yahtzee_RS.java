@@ -112,7 +112,12 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			add (numLabel, rank.getX() + rank.getWidth() * 0.5 - numLabel.getWidth() * 0.5, rank.getY() + rank.getHeight() * 1.4 * (i+1));
 		}
 		
-		
+		for (int i = 0; i < hallOfFame.length; i++){
+			String names = fameName[i];
+			GLabel namesLabel = new GLabel (names);
+			namesLabel.setColor(Color.YELLOW);
+			add (namesLabel, name.getX() + name.getWidth() * 0.5 - namesLabel.getWidth() * 0.5, name.getY() + name.getHeight() * 1.4 * (i+1));
+		}
 	
 		
 	}
