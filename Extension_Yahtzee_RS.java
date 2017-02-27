@@ -17,8 +17,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import acm.graphics.GCanvas;
-import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.io.*;
 import acm.program.*;
