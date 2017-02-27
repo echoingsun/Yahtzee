@@ -100,8 +100,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 
-		
-
 		// Create the array this method is going to return.
 		// Put in the best player index and his score.
 		int[] bestPlayerAndScore = new int[2];
@@ -111,39 +109,39 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	private String[][] toHallOfFame(int playerIndex, int theirScores) {
-		
+
 		// Use a tempScore array to cut through the history score records
 		// at where the new high score comes in.
 		int[] tempScoreArray = new int[0];
 		String[] tempNameArray = new String[0];
-		
-		for (int i = 0; i < fameScore.length; i++){
-			if (theirScores >= fameScore[i]){
-				tempScoreArray  = new int[fameScore.length - i - 1];
+
+		for (int i = 0; i < fameScore.length; i++) {
+			if (theirScores >= fameScore[i]) {
+				tempScoreArray = new int[fameScore.length - i - 1];
 				tempNameArray = new String[fameScore.length - i - 1];
-				for (int k = 0; k < tempScoreArray.length; k++){
-					tempScoreArray[k] = fameScore[k+i];
-					tempNameArray[k] = fameName[k+i];
-				}					
+				for (int k = 0; k < tempScoreArray.length; k++) {
+					tempScoreArray[k] = fameScore[k + i];
+					tempNameArray[k] = fameName[k + i];
+				}
 				fameScore[i] = theirScores;
 				fameName[i] = playerNames[playerIndex];
 				break;
 			}
 		}
-		
+
 		// Update fameScore and fameName
-		for (int i = 0; i < fameScore.length; i++){
-			if (i < fameScore.length - tempScoreArray.length){
+		for (int i = 0; i < fameScore.length; i++) {
+			if (i < fameScore.length - tempScoreArray.length) {
 				fameScore[i] = fameScore[i];
 				fameName[i] = fameName[i];
-						} else {
-				fameScore [i] = tempScoreArray[i-(fameScore.length-tempScoreArray.length)];
-				fameName[i] = tempNameArray[i - (fameScore.length-tempScoreArray.length)];
+			} else {
+				fameScore[i] = tempScoreArray[i - (fameScore.length - tempScoreArray.length)];
+				fameName[i] = tempNameArray[i - (fameScore.length - tempScoreArray.length)];
 			}
 		}
-		
+
 		// Update hallOfFame.
-		for (int i = 0; i < hallOfFame.length; i++){	
+		for (int i = 0; i < hallOfFame.length; i++) {
 			hallOfFame[i][0] = fameName[i];
 			hallOfFame[i][1] = Integer.toString(fameScore[i]);
 		}
@@ -151,23 +149,23 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	/*
-	 * http://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it-in-java
+	 * http://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-
+	 * write-to-it-in-java
 	 */
 	private void saveToFile() {
 
-		try {			
+		try {
 			File highScoresTxt = new File("highScores.txt");
-			if (!highScoresTxt.exists()){
+			if (!highScoresTxt.exists()) {
 				highScoresTxt.createNewFile();
 			}
 			FileWriter fw = new FileWriter(highScoresTxt);
 			BufferedWriter bw = new BufferedWriter(fw);
-			
+
 			bw.write("Rank" + "," + "Name" + "," + "Score");
-			bw.newLine();
-			for (int i = 0; i < hallOfFame.length; i++){
-				bw.write(Integer.toString(i+1) + "," + fameName[i] + "," +Integer.toString(fameScore[i]));
+			for (int i = 0; i < hallOfFame.length; i++) {
 				bw.newLine();
+				bw.write(Integer.toString(i + 1) + "," + fameName[i] + "," + Integer.toString(fameScore[i]));
 			}
 			bw.close();
 		} catch (Exception e) {
@@ -251,17 +249,14 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		// call this method first, wait for player for their choices,
 		// and finally display the chosen dice.
 		// This process repeats twice.
-		
-/*		for (int i = 0; i < TURN_PER_PLAYER - 1; i++) {
-			display.printMessage("Select the dice you wish to re-roll and click \"Roll Again\"");
-			display.waitForPlayerToSelectDice();
-			for (int k = 0; k < N_DICE; k++) {
-				if (display.isDieSelected(k)) {
-					randomValue(k);
-				}
-			}
-			display.displayDice(diceValue);
-		}*/
+
+		/*
+		 * for (int i = 0; i < TURN_PER_PLAYER - 1; i++) { display.
+		 * printMessage("Select the dice you wish to re-roll and click \"Roll Again\""
+		 * ); display.waitForPlayerToSelectDice(); for (int k = 0; k < N_DICE;
+		 * k++) { if (display.isDieSelected(k)) { randomValue(k); } }
+		 * display.displayDice(diceValue); }
+		 */
 
 		display.printMessage("Select a category for this roll.");
 
@@ -565,7 +560,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private boolean[][] isScoreUpdated;
 
 	// Create 2D arrays to store the names and scores in the hall of fame.
-	private String [] fameName = new String [10];
-	private int [] fameScore = new int [10];
-	private String [][] hallOfFame = new String [10][2];
+	private String[] fameName = new String[10];
+	private int[] fameScore = new int[10];
+	private String[][] hallOfFame = new String[10][2];
 }
