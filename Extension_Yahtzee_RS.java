@@ -85,7 +85,15 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		} else {
 			try {
-				BufferedReader bf = new BufferedReader (new FileReader("highScores.txt"));
+				BufferedReader br = new BufferedReader (new FileReader("highScores.txt"));
+				String str = br.readLine();
+				while (true){
+					int i = 0;
+					str = br.readLine();
+					
+					if (str == null) break;
+				}
+				
 				
 			}
 		}
