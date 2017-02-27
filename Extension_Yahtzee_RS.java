@@ -124,9 +124,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 		
-		for (int i = 1; i < hallOfFame.length; i++){
-			hallOfFame[i][1] = fameName[i-1];
-			hallOfFame[i][2] = Integer.toString(fameScore[i-1]);
+		for (int i = 0; i < hallOfFame.length; i++){
+			hallOfFame[i][0] = fameName[i];
+			hallOfFame[i][1] = Integer.toString(fameScore[i]);
 		}
 		return hallOfFame;
 	}
