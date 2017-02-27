@@ -6,6 +6,8 @@
  * I added the following function to the Yahtzee program:
  * (1a) Create a highScore txt file to store the high scores if not already;
  * (1b) Update the txt file with new high scores from every game.
+ * (2) Display the highscores on canvas.
+ * (3) update the leaderboard when players finish the game.
  */
 
 import java.awt.Color;
@@ -17,6 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.io.*;
 import acm.program.*;
@@ -97,6 +100,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		GLabel title = new GLabel ("HISTORY HIGH SCORES");
 		title.setColor(Color.YELLOW);
 		add (title, getWidth() * 0.738, getHeight() *0.1);
+		
 
 		
 		GLabel rank = new GLabel ("RANK");
@@ -676,6 +680,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[] fameName = new String[10];
 	private int[] fameScore = new int[10];
 	private String[][] hallOfFame = new String[10][2];
+	
+	GCompound scoreBoard = new GCompound();
 	
 
 }
