@@ -114,7 +114,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		for (int i = 0; i < fameScore.length; i++){
 			if (theirScores >= fameScore[i]){
 				for (int k = i; k < fameScore.length - 1; k++){
-					fameScore[i+1] = fameScore[i];
+					fameScore[k+1] = fameScore[k];
 				}					
 				fameScore[i] = theirScores;
 				fameName[i] = playerNames[playerIndex];
