@@ -138,7 +138,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 		}
 	
-		add(scoreBoard, getWidth() * 0.8, getHeight() * 0.1);
+		add(scoreBoard, 0,0);
 		
 	}
 
