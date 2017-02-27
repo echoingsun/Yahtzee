@@ -128,6 +128,15 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 		
+		// Update fameScore.
+		for (int i = 0; i < fameScore.length; i++){
+			if (i < fameScore.length - tempScoreArray.length){
+				fameScore[i] = fameScore[i];
+			} else {
+				fameScore [i] = tempScoreArray[i-(fameScore.length - tempScoreArray.length)];
+			}
+		}
+		
 		for (int i = 0; i < hallOfFame.length; i++){
 	
 			hallOfFame[i][0] = fameName[i];
