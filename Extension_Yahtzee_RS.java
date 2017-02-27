@@ -90,12 +90,15 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 				while (true){
 					int i = 0;
 					str = br.readLine();
-					
 					if (str == null) break;
+					String [] parts = str.split(",,");
+					fameName[i] = parts[1];
+					fameScore[i] = Integer.parseInt(parts[2]);
+					i++;					
 				}
-				
-				
-			}
+				br.close();
+			}	catch (IOException e){
+			throw new RuntimeException(e);}
 		}
 		
 	}
