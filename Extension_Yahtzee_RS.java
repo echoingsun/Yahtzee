@@ -96,7 +96,14 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		
 		GLabel rank = new GLabel ("RANK");
 		rank.setColor(Color.YELLOW);
+		GLabel name = new GLabel ("NAME");
+		name.setColor(Color.YELLOW);
+		GLabel score = new GLabel ("SCORE");
+		score.setColor(Color.YELLOW);
+		
 		add (rank, title.getX() - title.getWidth()*0.5, title.getY() + title.getHeight() * 1.5);
+		add(name, title.getX() + title.getWidth() * 0.5 - name.getWidth() * 0.5, rank.getY());
+		add(score, title.getX() + title.getWidth()*0.8, rank.getY());
 	
 		
 	}
