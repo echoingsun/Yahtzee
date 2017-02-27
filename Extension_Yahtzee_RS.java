@@ -45,7 +45,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 	private void playGame() {
 		
+		// Read high scores, set up arrays to store scores, etc.
 		setup();
+		
 		while (!gameEnds()) {
 			for (int i = 1; i <= nPlayers; i++) {
 				playOneRound(i); // Here i starts at 1.
@@ -65,15 +67,21 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		// Similarly, return the best score.
 		int bestScore = bestPlayerAndScore[1];
 		
-		readHighScores();
-		scoreBoard.removeAll();
-		showHighScores();
-
 		display.printMessage(
 				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
 
+		// At the end of the game, re-display the high scores since 
+		// a new game has been played.
+		readHighScores();
+		scoreBoard.removeAll();
+		showHighScores();
 	}
-
+	
+	/*
+	 * Method setup reads high scores from file and display it on the canvas.
+	 * It also initializes two important arrays:
+	 * scoreCard and isScoreUpdated.
+	 */
 	private void setup() {
 		readHighScores();
 		showHighScores();
@@ -91,8 +99,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		// When modifying the values in isScoreUpdated, minus 1 from the
 		// parameters.
 		isScoreUpdated = new boolean[N_SCORING_CATEGORIES][nPlayers];
-		
-		
 	}
 
 	private void showHighScores() {
