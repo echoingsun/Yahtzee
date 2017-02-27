@@ -31,23 +31,23 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		new Extension_Yahtzee_RS().start(args);
 	}
 
-	public void run() {				
-		IODialog dialog = getDialog();		
+	public void run() {
+		IODialog dialog = getDialog();
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
 		for (int i = 1; i <= nPlayers; i++) {
 			playerNames[i - 1] = dialog.readLine("Enter name for player " + i);
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
-		
+
 		playGame();
 	}
 
 	private void playGame() {
-		
+
 		// Read high scores, set up arrays to store scores, etc.
 		setup();
-		
+
 		while (!gameEnds()) {
 			for (int i = 1; i <= nPlayers; i++) {
 				playOneRound(i); // Here i starts at 1.
@@ -66,26 +66,25 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 		// Similarly, return the best score.
 		int bestScore = bestPlayerAndScore[1];
-		
+
 		display.printMessage(
 				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
 
-		// At the end of the game, re-display the high scores since 
+		// At the end of the game, re-display the high scores since
 		// a new game has been played.
 		readHighScores();
 		scoreBoard.removeAll();
 		showHighScores();
 	}
-	
+
 	/*
-	 * Method setup reads high scores from file and display it on the canvas.
-	 * It also initializes two important arrays:
-	 * scoreCard and isScoreUpdated.
+	 * Method setup reads high scores from file and display it on the canvas. It
+	 * also initializes two important arrays: scoreCard and isScoreUpdated.
 	 */
 	private void setup() {
 		readHighScores();
 		showHighScores();
-		
+
 		// Array scoreCard keeps track of the players' scores.
 		// It's N_CATEGORES (17) * number of players.
 		// When modifying the values in scoreCard, minus 1 from the parameters.
@@ -102,65 +101,66 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	/*
-	 * Method showHighScores grabs data from the result of readHighScores,
-	 * and display them as labels on canvas.
-	 * An instance variable scoreBoard holds all these labels as elements of 
-	 * a GCompound.
+	 * Method showHighScores grabs data from the result of readHighScores, and
+	 * display them as labels on canvas. An instance variable scoreBoard holds
+	 * all these labels as elements of a GCompound.
 	 */
 	private void showHighScores() {
-				
-		// Define labels for the scoreBoard.
-		GLabel title = new GLabel ("HISTORY HIGH SCORES");
-		title.setColor(Color.YELLOW);
-		
-		// Add label to scoreBoard.
-		scoreBoard.add (title, getWidth() * 0.738, getHeight() *0.1);
 
-		GLabel rank = new GLabel ("RANK");
+		// Define labels for the scoreBoard.
+		GLabel title = new GLabel("HISTORY HIGH SCORES");
+		title.setColor(Color.YELLOW);
+
+		// Add label to scoreBoard.
+		scoreBoard.add(title, getWidth() * 0.738, getHeight() * 0.1);
+
+		GLabel rank = new GLabel("RANK");
 		rank.setColor(Color.YELLOW);
-		GLabel name = new GLabel ("NAME");
+		GLabel name = new GLabel("NAME");
 		name.setColor(Color.YELLOW);
-		GLabel score = new GLabel ("SCORE");
-		score.setColor(Color.YELLOW);		
-		scoreBoard.add (rank, title.getX() - title.getWidth()*0.5, title.getY() + title.getHeight() * 1.5);
+		GLabel score = new GLabel("SCORE");
+		score.setColor(Color.YELLOW);
+		scoreBoard.add(rank, title.getX() - title.getWidth() * 0.5, title.getY() + title.getHeight() * 1.5);
 		scoreBoard.add(name, title.getX() + title.getWidth() * 0.5 - name.getWidth() * 0.5, rank.getY());
 		scoreBoard.add(score, title.getX() + title.getWidth() * 1.15, rank.getY());
-		
+
 		// Since method readHighScores gets the data from the txt file
 		// and puts them into arrays fameName and fameScore,
 		// here it extracts data from the two arrays and turn them into
 		// GLabels to show on the screen.
 		// These labels are also a part of the GCompound scoreBoard.
-		for (int i = 0; i < hallOfFame.length; i++){
-			String num = Integer.toString(i+1);
-			GLabel numLabel = new GLabel (num);
+		for (int i = 0; i < hallOfFame.length; i++) {
+			String num = Integer.toString(i + 1);
+			GLabel numLabel = new GLabel(num);
 			numLabel.setColor(Color.YELLOW);
-			scoreBoard.add (numLabel, rank.getX() + rank.getWidth() * 0.5 - numLabel.getWidth() * 0.5, rank.getY() + rank.getHeight() * 1.4 * (i+1));
+			scoreBoard.add(numLabel, rank.getX() + rank.getWidth() * 0.5 - numLabel.getWidth() * 0.5,
+					rank.getY() + rank.getHeight() * 1.4 * (i + 1));
 		}
-		
-		for (int i = 0; i < hallOfFame.length; i++){
+
+		for (int i = 0; i < hallOfFame.length; i++) {
 			String names = fameName[i];
-			GLabel namesLabel = new GLabel (names);
+			GLabel namesLabel = new GLabel(names);
 			namesLabel.setColor(Color.YELLOW);
-			scoreBoard.add (namesLabel, name.getX() + name.getWidth() * 0.5 - namesLabel.getWidth() * 0.5, name.getY() + name.getHeight() * 1.4 * (i+1));
+			scoreBoard.add(namesLabel, name.getX() + name.getWidth() * 0.5 - namesLabel.getWidth() * 0.5,
+					name.getY() + name.getHeight() * 1.4 * (i + 1));
 		}
-		
-		for (int i = 0; i < hallOfFame.length; i++){
+
+		for (int i = 0; i < hallOfFame.length; i++) {
 			int scores = fameScore[i];
 			String scoresStr = Integer.toString(scores);
-			GLabel scoresLabel = new GLabel (scoresStr);
+			GLabel scoresLabel = new GLabel(scoresStr);
 			scoresLabel.setColor(Color.YELLOW);
-			scoreBoard.add (scoresLabel, score.getX() + score.getWidth() * 0.5 - scoresLabel.getWidth() * 0.5, score.getY() + score.getHeight() * 1.4 * (i+1));
+			scoreBoard.add(scoresLabel, score.getX() + score.getWidth() * 0.5 - scoresLabel.getWidth() * 0.5,
+					score.getY() + score.getHeight() * 1.4 * (i + 1));
 		}
-	
-		add(scoreBoard, 0,0);
-		
+
+		add(scoreBoard, 0, 0);
+
 	}
 
 	/*
-	 * Method readHighScores creates or opens a txt file
-	 * and reads its data into an arraylist,
-	 * and finally puts them into arrays fameName and fameScore.
+	 * Method readHighScores creates or opens a txt file and reads its data into
+	 * an arraylist, and finally puts them into arrays fameName and fameScore.
 	 */
 	private void readHighScores() {
 
@@ -189,44 +189,47 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 				throw new RuntimeException(e);
 			}
 		}
-		
-		// Now that all the lines from the txt file are in the 
+
+		// Now that all the lines from the txt file are in the
 		// array list (as long as the file exists and is not empty),
 		// split each line to store the values into arrays.
 		// Since the first line of the text will be titles,
 		// start extracting data from the second element of the arraylist.
-		for (int i = 0; i < hallOfFame.length; i++){
-			fameName[i] = importBestPlayers(AL, i+1);
-			fameScore[i] = importHighScores(AL, i+1);
+		for (int i = 0; i < hallOfFame.length; i++) {
+			fameName[i] = importBestPlayers(AL, i + 1);
+			fameScore[i] = importHighScores(AL, i + 1);
 		}
 	}
 
 	/*
-	 * Method importBestPlayers takes in the arraylist
-	 * that stores all the read lines, and the index of the line.
-	 * It returns the name of the player in that line.
+	 * Method importBestPlayers takes in the arraylist that stores all the read
+	 * lines, and the index of the line. It returns the name of the player in
+	 * that line.
 	 */
 	private String importBestPlayers(ArrayList<String> AL, int ALIndex) {
-		
+
 		// If there is no previous file to read and the arraylist
 		// is therefore empty,
 		// return "---" to indicate that.
 		// It also prevents throwing index out of bound exception.
-		if (AL.size() ==0) return "---";
-		String [] parts = AL.get(ALIndex).split(",,");
+		if (AL.size() == 0)
+			return "---";
+		String[] parts = AL.get(ALIndex).split(",,");
 		String name = parts[1]; // Names will be the second part of the string.
-		if (name.equals("null")) name = "---";
+		if (name.equals("null"))
+			name = "---";
 		return name;
 	}
-	
+
 	/*
-	 * Method importBestScores takes in the arraylist
-	 * that stores all the read lines, and the index of the line.
-	 * It returns the score of the player in that line.
+	 * Method importBestScores takes in the arraylist that stores all the read
+	 * lines, and the index of the line. It returns the score of the player in
+	 * that line.
 	 */
 	private int importHighScores(ArrayList<String> AL, int ALIndex) {
-		if (AL.size() == 0) return 0;
-		String [] parts = AL.get(ALIndex).split(",,");
+		if (AL.size() == 0)
+			return 0;
+		String[] parts = AL.get(ALIndex).split(",,");
 		int score = Integer.parseInt(parts[2]);
 		return score;
 	}
@@ -249,7 +252,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			allTotalScores[i] = scoreCard[TOTAL - 1][i];
 			hallOfFame = toHallOfFame(i, scoreCard[TOTAL - 1][i]);
 		}
-		
+
 		// Since all players have finished the game,
 		// And all high scores compared,
 		// save all the high scores to the txt file.
@@ -275,9 +278,12 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		bestPlayerAndScore[1] = maxScore;
 		return bestPlayerAndScore;
 	}
-	
+
 	/*
-	 * 
+	 * Method toHallOfFame takes in the player index and their corresponding
+	 * scores, runs them through the existing high scores. If the score is
+	 * higher than one of the previous high scores, lower the scores after that
+	 * one rank down each.
 	 */
 	private String[][] toHallOfFame(int playerIndex, int theirScores) {
 
@@ -286,21 +292,46 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		int[] tempScoreArray = new int[0];
 		String[] tempNameArray = new String[0];
 
+		// Loop through fameScore which stores all the current high scores.
+		// If, say, the score the player just got is to rank the second,
+		// let the player's score be the new second rank, and create a new
+		// array list that holds 8 scores that are the previously
+		// 2nd to 9th ranking scores. They will now rank 3rd to 10th
+		// in the updated fameScore array.
 		for (int i = 0; i < fameScore.length; i++) {
-			if (theirScores >= fameScore[i]) {
-				tempScoreArray = new int[fameScore.length - i - 1];
+			if (theirScores >= fameScore[i]) { 
+				
+				// If player got to rank the 2nd
+				tempScoreArray = new int[fameScore.length - i - 1]; 
+				
+				// The new array will have the length [10-2]
+				// to hold the previously 2-9 ranking scores.
 				tempNameArray = new String[fameScore.length - i - 1];
+				
 				for (int k = 0; k < tempScoreArray.length; k++) {
-					tempScoreArray[k] = fameScore[k + i];
+					
+					// the 1st score of the new array would be 
+					// the 3rd ranking score in the previous one.
+					tempScoreArray[k] = fameScore[k + i]; 
 					tempNameArray[k] = fameName[k + i];
 				}
+				
+				// The new score took over the 2nd place.
 				fameScore[i] = theirScores;
 				fameName[i] = playerNames[playerIndex];
+				
+				// Only do compare once as fameScore already has the 
+				// scores from high to low.
 				break;
 			}
 		}
 
-		// Update fameScore and fameName
+		// Update fameScore and fameName arrays.
+		// The first part of the arrays would be the scores previously
+		// in the array as they are not beaten by players, and the 
+		// score that earns a new rank on the list.
+		// The second part come from the tempScoreArray that records
+		// the scores whose rankings have changed.
 		for (int i = 0; i < fameScore.length; i++) {
 			if (i < fameScore.length - tempScoreArray.length) {
 				fameScore[i] = fameScore[i];
@@ -311,7 +342,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 
-		// Update hallOfFame.
+		// Update hallOfFame. Just reflect fameName and fameScore
+		// into two different columns of hallOfFame.
 		for (int i = 0; i < hallOfFame.length; i++) {
 			hallOfFame[i][0] = fameName[i];
 			hallOfFame[i][1] = Integer.toString(fameScore[i]);
@@ -731,8 +763,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[] fameName = new String[10];
 	private int[] fameScore = new int[10];
 	private String[][] hallOfFame = new String[10][2];
-	
+
 	GCompound scoreBoard = new GCompound();
-	
 
 }
