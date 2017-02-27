@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import acm.graphics.GCanvas;
+import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.io.*;
 import acm.program.*;
@@ -94,9 +95,11 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	private void showHighScores() {
+				
 		GLabel title = new GLabel ("HISTORY HIGH SCORES");
 		title.setColor(Color.YELLOW);
 		add (title, getWidth() * 0.738, getHeight() *0.1);
+		scoreBoard.add(title);
 		
 		GLabel rank = new GLabel ("RANK");
 		rank.setColor(Color.YELLOW);
@@ -104,6 +107,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		name.setColor(Color.YELLOW);
 		GLabel score = new GLabel ("SCORE");
 		score.setColor(Color.YELLOW);
+		scoreBoard.add(rank);
+		scoreBoard.add(name);
+		scoreBoard.add(score);
 		
 		add (rank, title.getX() - title.getWidth()*0.5, title.getY() + title.getHeight() * 1.5);
 		add(name, title.getX() + title.getWidth() * 0.5 - name.getWidth() * 0.5, rank.getY());
@@ -114,6 +120,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			GLabel numLabel = new GLabel (num);
 			numLabel.setColor(Color.YELLOW);
 			add (numLabel, rank.getX() + rank.getWidth() * 0.5 - numLabel.getWidth() * 0.5, rank.getY() + rank.getHeight() * 1.4 * (i+1));
+			scoreBoard.add(numLabel);
 		}
 		
 		for (int i = 0; i < hallOfFame.length; i++){
@@ -121,6 +128,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			GLabel namesLabel = new GLabel (names);
 			namesLabel.setColor(Color.YELLOW);
 			add (namesLabel, name.getX() + name.getWidth() * 0.5 - namesLabel.getWidth() * 0.5, name.getY() + name.getHeight() * 1.4 * (i+1));
+			scoreBoard.add(namesLabel);
 		}
 		
 		for (int i = 0; i < hallOfFame.length; i++){
@@ -129,6 +137,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			GLabel scoresLabel = new GLabel (scoresStr);
 			scoresLabel.setColor(Color.YELLOW);
 			add (scoresLabel, score.getX() + score.getWidth() * 0.5 - scoresLabel.getWidth() * 0.5, score.getY() + score.getHeight() * 1.4 * (i+1));
+			scoreBoard.add(scoresLabel);
 		}
 	
 		
@@ -671,4 +680,6 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String[] fameName = new String[10];
 	private int[] fameScore = new int[10];
 	private String[][] hallOfFame = new String[10][2];
+	
+	private GCompound scoreBoard = new GCompound();
 }
