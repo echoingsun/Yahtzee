@@ -27,12 +27,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		new Extension_Yahtzee_RS().start(args);
 	}
 
-	public void run() {
-		
-		
-		IODialog dialog = getDialog();
-
-		
+	public void run() {				
+		IODialog dialog = getDialog();		
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
 		for (int i = 1; i <= nPlayers; i++) {
@@ -44,23 +40,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	private void playGame() {
-		readHighScores();
 		
-
-		// Array scoreCard keeps track of the players' scores.
-		// It's N_CATEGORES (17) * number of players.
-		// When modifying the values in scoreCard, minus 1 from the parameters.
-		scoreCard = new int[N_CATEGORIES][nPlayers];
-
-		// Array isScoreUpdated keeps track of whether the scoring part of the
-		// scoreCard is already updated. If yes, player cannot modify the
-		// results,
-		// but can only turn to another category instead.
-		// It does not include the non-scoring parts of the scoreCard.
-		// When modifying the values in isScoreUpdated, minus 1 from the
-		// parameters.
-		isScoreUpdated = new boolean[N_SCORING_CATEGORIES][nPlayers];
-
+		setup();
 		while (!gameEnds()) {
 			for (int i = 1; i <= nPlayers; i++) {
 				playOneRound(i); // Here i starts at 1.
@@ -83,6 +64,26 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		display.printMessage(
 				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
 
+	}
+
+	private void setup() {
+		readHighScores();
+		
+		// Array scoreCard keeps track of the players' scores.
+		// It's N_CATEGORES (17) * number of players.
+		// When modifying the values in scoreCard, minus 1 from the parameters.
+		scoreCard = new int[N_CATEGORIES][nPlayers];
+
+		// Array isScoreUpdated keeps track of whether the scoring part of the
+		// scoreCard is already updated. If yes, player cannot modify the
+		// results,
+		// but can only turn to another category instead.
+		// It does not include the non-scoring parts of the scoreCard.
+		// When modifying the values in isScoreUpdated, minus 1 from the
+		// parameters.
+		isScoreUpdated = new boolean[N_SCORING_CATEGORIES][nPlayers];
+		
+		
 	}
 
 	private void readHighScores() {
