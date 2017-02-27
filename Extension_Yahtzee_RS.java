@@ -246,6 +246,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			allTotalScores[i] = scoreCard[TOTAL - 1][i];
 			hallOfFame = toHallOfFame(i, scoreCard[TOTAL - 1][i]);
 		}
+		
+		// Since all players have finished the game,
+		// save all their scores to the txt file.
 		saveToFile();
 
 		// Compare the total scores and get the highest.
