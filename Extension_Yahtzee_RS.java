@@ -133,7 +133,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			if (i < fameScore.length - tempScoreArray.length){
 				fameScore[i] = fameScore[i];
 			} else {
-				fameScore [i] = tempScoreArray[i-(fameScore.length - tempScoreArray.length)];
+				fameScore [i] = tempScoreArray[i-(fameScore.length-tempScoreArray.length)];
 			}
 		}
 		
