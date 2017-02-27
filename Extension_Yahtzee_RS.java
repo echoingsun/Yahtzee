@@ -275,7 +275,10 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		bestPlayerAndScore[1] = maxScore;
 		return bestPlayerAndScore;
 	}
-
+	
+	/*
+	 * 
+	 */
 	private String[][] toHallOfFame(int playerIndex, int theirScores) {
 
 		// Use a tempScore array to cut through the history score records
