@@ -86,6 +86,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			allTotalScores[i] = scoreCard[TOTAL - 1][i];
 			hallOfFame = toHallOfFame(i, scoreCard[TOTAL - 1][i]);
 		}
+		saveToFile();
 
 		// Compare the total scores and get the highest.
 		// Let the best player and his score be the first player's,
@@ -100,7 +101,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 
-		saveToFile(bestPlayerIndex, maxScore);
+		
 
 		// Create the array this method is going to return.
 		// Put in the best player index and his score.
@@ -133,9 +134,8 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	/*
 	 * http://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it-in-java
 	 */
-	private void saveToFile(int bestPlayerIndex, int maxScore) {
-		String nameStr = playerNames[bestPlayerIndex];
-		String scoreStr = Integer.toString(maxScore);
+	private void saveToFile() {
+
 		try {			
 			File highScoresTxt = new File("highScores.txt");
 			if (!highScoresTxt.exists()){
@@ -143,7 +143,11 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 			FileWriter fw = new FileWriter(highScoresTxt);
 			BufferedWriter bw = new BufferedWriter(fw);
-			bw.write(nameStr + " " + scoreStr);
+			
+			bw.write("--Rank--" + "         " + "--------NAME--------" + "         " + "--Score--");
+			for (int i = 1; i < hallOfFame.length; i++){
+				bw.write(Integer.toString(i) + fameName[i-1] + Integer.toString(fameScore[i-1]));
+			}
 			bw.close();
 		} catch (Exception e) {
 		}
@@ -541,5 +545,5 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	// Create 2D arrays to store the names and scores in the hall of fame.
 	private String [] fameName = new String [10];
 	private int [] fameScore = new int [10];
-	private String [][] hallOfFame = new String [11][3];
+	private String [][] hallOfFame = new String [10][2];
 }
