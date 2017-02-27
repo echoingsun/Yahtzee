@@ -167,6 +167,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	private String importBestPlayers(ArrayList<String> AL, int ALIndex) {
+		if (AL.size() ==0) return "---";
 		String [] parts = AL.get(ALIndex).split(",,");
 		String name = parts[1];
 		if (name.equals("null")) name = "---";
@@ -174,6 +175,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 	
 	private int importHighScores(ArrayList<String> AL, int ALIndex) {
+		if (AL.size() == 0) return 0;
 		String [] parts = AL.get(ALIndex).split(",,");
 		int score = Integer.parseInt(parts[2]);
 		return score;
