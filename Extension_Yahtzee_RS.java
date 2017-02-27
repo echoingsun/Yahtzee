@@ -92,7 +92,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 					int i = 0;
 					str = br.readLine();
 					if (str == null) break;
-					String [] parts = str.split(",");
+					String [] parts = str.split(",,");
 					fameName[i] = parts[1];
 					fameScore[i] = Integer.parseInt(parts[2]);
 					i++;					
