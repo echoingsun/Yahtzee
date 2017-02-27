@@ -66,7 +66,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		int bestScore = bestPlayerAndScore[1];
 		
 		readHighScores();
-		remove(scoreBoard);
+		scoreBoard.removeAll();
 		showHighScores();
 
 		display.printMessage(
