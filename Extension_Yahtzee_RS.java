@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import acm.graphics.GCanvas;
+import acm.graphics.GLabel;
 import acm.io.*;
 import acm.program.*;
 import acm.util.*;
@@ -68,6 +69,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 	private void setup() {
 		readHighScores();
+		showHighScores();
 		
 		// Array scoreCard keeps track of the players' scores.
 		// It's N_CATEGORES (17) * number of players.
@@ -83,6 +85,12 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		// parameters.
 		isScoreUpdated = new boolean[N_SCORING_CATEGORIES][nPlayers];
 		
+		
+	}
+
+	private void showHighScores() {
+		GLabel aaa = new GLabel ("aaa");
+		add (aaa, getWidth() - 200, getHeight() - 100);
 		
 	}
 
