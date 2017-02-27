@@ -62,6 +62,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 		// Similarly, return the best score.
 		int bestScore = bestPlayerAndScore[1];
+		
+		readHighScores();
+		showHighScores();
 
 		display.printMessage(
 				"Congratulations " + bestPlayer + "! You're the winner with a total score of " + bestScore + "!");
