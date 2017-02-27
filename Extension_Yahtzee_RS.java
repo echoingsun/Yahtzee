@@ -121,7 +121,12 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 				break;
 			}
 		}
-		return null;
+		
+		for (int i = 1; i < hallOfFame.length; i++){
+			hallOfFame[i][1] = fameName[i-1];
+			hallOfFame[i][2] = Integer.toString(fameScore[i-1]);
+		}
+		return hallOfFame;
 	}
 
 	/*
