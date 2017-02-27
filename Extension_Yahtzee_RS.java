@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import acm.graphics.GCanvas;
 import acm.io.*;
 import acm.program.*;
 import acm.util.*;
@@ -27,7 +28,13 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	public void run() {
+		readHighScores();
+		
 		IODialog dialog = getDialog();
+		
+		dialog.print("Hey");
+		pause(1000);
+		
 		nPlayers = dialog.readInt("Enter number of players");
 		playerNames = new String[nPlayers];
 		for (int i = 1; i <= nPlayers; i++) {
@@ -39,7 +46,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 
 	private void playGame() {
 
-		readHighScores();
+		
 
 		// Array scoreCard keeps track of the players' scores.
 		// It's N_CATEGORES (17) * number of players.
