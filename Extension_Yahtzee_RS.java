@@ -131,7 +131,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 		
-		// Update fameScore.
+		// Update fameScore and fameName
 		for (int i = 0; i < fameScore.length; i++){
 			if (i < fameScore.length - tempScoreArray.length){
 				fameScore[i] = fameScore[i];
@@ -142,6 +142,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 		
+		// Update hallOfFame.
 		for (int i = 0; i < hallOfFame.length; i++){	
 			hallOfFame[i][0] = fameName[i];
 			hallOfFame[i][1] = Integer.toString(fameScore[i]);
