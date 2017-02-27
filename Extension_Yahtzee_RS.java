@@ -28,7 +28,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	}
 
 	public void run() {
-		readHighScores();
+		
 		
 		IODialog dialog = getDialog();
 
@@ -39,11 +39,12 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			playerNames[i - 1] = dialog.readLine("Enter name for player " + i);
 		}
 		display = new YahtzeeDisplay(getGCanvas(), playerNames);
+		
 		playGame();
 	}
 
 	private void playGame() {
-
+		readHighScores();
 		
 
 		// Array scoreCard keeps track of the players' scores.
