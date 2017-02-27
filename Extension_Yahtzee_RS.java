@@ -144,8 +144,10 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			BufferedWriter bw = new BufferedWriter(fw);
 			
 			bw.write("--Rank--" + "         " + "--------NAME--------" + "         " + "--Score--");
+			bw.newLine();
 			for (int i = 1; i < hallOfFame.length; i++){
 				bw.write(Integer.toString(i) + fameName[i-1] + Integer.toString(fameScore[i-1]));
+				bw.newLine();
 			}
 			bw.close();
 		} catch (Exception e) {
