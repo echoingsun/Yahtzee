@@ -165,7 +165,9 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 	private String importBestPlayers(ArrayList<String> AL, int ALIndex) {
 		String [] parts = AL.get(ALIndex).split(",,");
 		String name = parts[1];
-		if (name == null) return "---";
+		if (name == null) {
+			name = "---";
+		};
 		return name;
 	}
 	
