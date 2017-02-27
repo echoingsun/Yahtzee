@@ -114,11 +114,13 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 		
 		// Use a tempScore array to cut through the history score records
 		// at where the new high score comes in.
-		int[] tempScoreArray = new int[0];
+		int[] tempScoreArray;
+		String[] temNameArray;
 		
 		for (int i = 0; i < fameScore.length; i++){
 			if (theirScores >= fameScore[i]){
 				tempScoreArray  = new int[fameScore.length - i - 1];
+				tempNameArray = new String[fameScore.length - i - 1];
 				for (int k = 0; k < tempScoreArray.length; k++){
 					tempScoreArray[k] = fameScore[k+i];
 				}					
@@ -137,8 +139,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			}
 		}
 		
-		for (int i = 0; i < hallOfFame.length; i++){
-	
+		for (int i = 0; i < hallOfFame.length; i++){	
 			hallOfFame[i][0] = fameName[i];
 			hallOfFame[i][1] = Integer.toString(fameScore[i]);
 		}
