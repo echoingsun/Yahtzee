@@ -124,7 +124,7 @@ public class Extension_Yahtzee_RS extends GraphicsProgram implements YahtzeeCons
 			String scoresStr = Integer.toString(scores);
 			GLabel scoresLabel = new GLabel (scoresStr);
 			scoresLabel.setColor(Color.YELLOW);
-			add (scoresLabel, score.getX() + score.getWidth() * 0.5 - scoresLabel.getWidth() * 0.5, name.getY() + name.getHeight() * 1.4 * (i+1));
+			add (scoresLabel, score.getX() + score.getWidth() * 0.5 - scoresLabel.getWidth() * 0.5, score.getY() + score.getHeight() * 1.4 * (i+1));
 		}
 	
 		
